@@ -33,15 +33,18 @@ const Page = () => {
       </div>
     );
   }
-  const dataObject =
-    data?.reduce((acc: any, item: any) => {
-      acc["Data"] = {
-        topic: item.topic,
-        label: item.label,
-        link: item.link,
-      };
-      return acc;
-    }, {}) || {};
+
+  const dataObject = data.reduce((acc: any, item: any) => {
+    acc["Data"] = {
+      topic: item.topic,
+      label: item.label,
+      link: item.link,
+    };
+    return acc;
+  }, {});
+
+  const hasData = dataObject.Data && dataObject.Data.label;
+
   console.log(data);
   console.log(dataObject);
 
@@ -60,14 +63,16 @@ const Page = () => {
       <div className="">
         <section className="rounded-lg overflow-hidden">
           <div className="bg-black flex items-center justify-center h-[30px] lg:h-[48px] w-full">
-            <h1 className=" text-[#158487] 2xl:text-[16px] xl:text-[14px] text-[10px] md:text-base text-xs font-bold">
+            <h1 className="text-[#158487] 2xl:text-[16px] xl:text-[14px] text-[10px] md:text-base text-xs font-bold">
               {InputValue ? (
                 InputValue
               ) : (
-                <>
-                  <span className="font-normal">{dataObject.Data.label}</span> |{" "}
-                  {dataObject.Data.topic}
-                </>
+                hasData && (
+                  <>
+                    <span className="font-normal">{dataObject.Data.label}</span> |{" "}
+                    {dataObject.Data.topic}
+                  </>
+                )
               )}
             </h1>
           </div>
