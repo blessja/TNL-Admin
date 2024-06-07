@@ -7,7 +7,6 @@ import { useGetNewsQuery } from "@/Store/apiSlice";
 import axios from "axios";
 
 const Page = () => {
-  // State to store input values
   const [isLoading,setIsLoading]=useState(false);
   const [inputValues, setInputValues] = useState({
     newsTitle: "",
