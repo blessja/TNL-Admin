@@ -1,9 +1,9 @@
 "use client"
-import store from "@/Store/Store";
 import NavButtons from "@/components/Reusable/NavButtons";
 import SideBar from "@/components/SideBar";
+import { ApiProvider } from "@reduxjs/toolkit/query/react";
+import { api } from "@/Store/apiSlice";
 import React from "react";
-import { Provider } from "react-redux";
 
 const Homelayout = ({
   children,
@@ -13,7 +13,7 @@ const Homelayout = ({
   return (
     <div className="">
       <SideBar>
-        <Provider store={store}>{children}</Provider>
+        <ApiProvider api={api}>{children}</ApiProvider>
       </SideBar>
       {/* <HomeFooter /> */}
     </div>
