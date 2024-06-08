@@ -11,7 +11,7 @@ interface LanguagesProps {
   page: PageData[];
 }
 
-const FormSection = ({ title, onSubmit, data }: any) => {
+const FormSection = ({ title, onSubmit, data,language,context }: any) => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
 
@@ -24,7 +24,7 @@ const FormSection = ({ title, onSubmit, data }: any) => {
   };
 
   const handleFormSubmit = () => {
-    onSubmit({ question, answer });
+    onSubmit({ question, answer,language,context });
     setQuestion("");
     setAnswer("");
   };
