@@ -44,16 +44,30 @@ export const api = createApi({
             invalidatesTags:["FAQ"]
         }),
         updateFAQs: builder.mutation({
-            query: ({id,...updatedPromo}) => ({
+            query: ({id,...updatedFAQ}) => ({
                 url:`/api/faqs/update/${id}`,
                 method:"PATCH",
-                body: updatedPromo
+                body: updatedFAQ
             }),
             invalidatesTags:["FAQ"]
+        }),
+        deleteFAQs: builder.mutation({
+            query: (id) => ({
+                url:`/api/faqs/delete/${id}`,
+                method:"DELETE",
+            }),
+            invalidatesTags:["FAQ"],
         }),
 
         //
     })
 })
 
-export const {useGetPromoQuery,useUpdatePromoMutation,useGetNewsQuery,useGetFAQsQuery,useGetFilteredFAQsQuery,useAddFAQsMutation,useUpdateFAQsMutation} = api;
+export const {useGetPromoQuery,
+    useUpdatePromoMutation,
+    useGetNewsQuery,useGetFAQsQuery,
+    useGetFilteredFAQsQuery,
+    useAddFAQsMutation,
+    useUpdateFAQsMutation,
+    useDeleteFAQsMutation
+} = api;
