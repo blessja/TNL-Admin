@@ -1,17 +1,13 @@
 "use client";
-import {
-  getAllFAQsAsync,
-  getFilteredFAQsAsync,
-  selectFAQStatus,
-  selectFAQsData,
-} from "@/Store/adminSlice";
+import { useAddFAQsMutation, useGetFAQsQuery } from "@/Store/apiSlice";
 import FormSection from "@/components/Reusable/FormSection";
-import { useAppDispatch } from "@/helpers/hooks";
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
 
 const Page = () => {
+  const {data,isLoading}=useGetFAQsQuery("");
+  const [addFAQs,{isLoading:isAdding}]=useAddFAQsMutation();
   const handleFAQSubmit = (formData: any) => {
+    addFAQs(formData);
     console.log("FAQ Form Data:", formData);
     // You can perform further actions with the form data, such as sending it to a server
   };
@@ -23,14 +19,6 @@ const Page = () => {
 
   const filterData = { filter: "language", type: "german" };
 
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(getFilteredFAQsAsync(filterData));
-  }, [dispatch]);
-
-  const data = useSelector(selectFAQsData);
-  const status = useSelector(selectFAQStatus);
-
   if (status === "loading" || !data) {
     return (
       <div className="w-full h-full flex items-center justify-center">
@@ -40,7 +28,7 @@ const Page = () => {
     );
   }
   const faqData = data.filter(
-    (item: any) => item.category === "General" && item.context === "Home"
+    (item: any) => item.language === "German" && item.context === "Home"
   );
   const infoSectionData = data.filter(
     (item: any) =>
@@ -56,7 +44,7 @@ const Page = () => {
         Home Page:
       </label>
       {/* FAQ's */}
-      <FormSection title="FAQ's" data={faqData} onSubmit={handleFAQSubmit} />
+      <FormSection title="FAQ's" data={faqData} onSubmit={handleFAQSubmit} context={"Home"} language={"German"}/>
       <FormSection
         title="Everything you need to know section"
         data={infoSectionData}
