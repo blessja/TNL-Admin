@@ -2,7 +2,7 @@ import {createApi,fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
     baseQuery: fetchBaseQuery({baseUrl:"http://3.110.121.13"}),
-    tagTypes:["Promos","News","FAQ"],
+    tagTypes:["Promos","News","FAQ","Stats"],
     endpoints:(builder) => ({
         // -----------------------------promo queries-------------------------------
 
@@ -53,7 +53,20 @@ export const api = createApi({
         }),
 
         //
+        getStats: builder.query({
+            query: () => "/api/stats/get-all",
+            providesTags: ["Stats"],
+          }),
+  
+          updateStats: builder.mutation({
+            query: ({id,...updatedStatsData}) => ({
+              url: `/api/stats/update/${id}`,
+              method: "PATCH",
+              body: updatedStatsData, 
+            }),
+            invalidatesTags: ["Stats"], 
+          }),
     })
 })
 
-export const {useGetPromoQuery,useUpdatePromoMutation,useGetNewsQuery,useGetFAQsQuery,useGetFilteredFAQsQuery,useAddFAQsMutation,useUpdateFAQsMutation} = api;
+export const {useGetPromoQuery,useUpdatePromoMutation,useGetNewsQuery,useGetFAQsQuery,useGetFilteredFAQsQuery,useAddFAQsMutation,useUpdateFAQsMutation, useGetStatsQuery, useUpdateStatsMutation} = api;
