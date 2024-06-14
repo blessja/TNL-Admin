@@ -1,108 +1,66 @@
 "use client";
-import {
-  getStatsAsync,
-  // updateStatsAsync,
-  selectFAQStatus,
-  selectStats,
-} from "@/Store/adminSlice";
+import { useGetStatsQuery, useUpdateStatsMutation } from "@/Store/apiSlice";
 import StatusBar from "@/components/Status";
-import { useAppDispatch } from "@/helpers/hooks";
 import React, { ChangeEventHandler, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-
+import { CustomRating } from "@/components/CustomRating";
 const Page = () => {
-  const dispatch = useAppDispatch();
-
-  const statsData = useSelector(selectStats);
-  const status = useSelector(selectFAQStatus);
-
-  const [languages, setLanguages] = useState<number>(0);
-  const [learners, setLearners] = useState<number>(0);
-  const [alphaMentors, setAlphaMentors] = useState<number>(0);
-  const [hoursOfEnlightenment, setHoursOfEnlightenment] = useState<number>(0);
-  const [googleReviews, setGoogleReviews] = useState<number>(0);
-
-  useEffect(() => {
-    dispatch(getStatsAsync());
-  }, [dispatch]);
-
+  const { data: statsData, isLoading } = useGetStatsQuery("");
+  const [updateStats, { isLoading: isLoadingUpdate }] =
+    useUpdateStatsMutation();
+  const [InputValue, setInputValue] = useState({
+    totalLanguages: 0,
+    totalLeaners: 0,
+    totalMentors: 0,
+    totalHours: 0,
+    googleReviews: 0,
+  });
+  const [hasUpdated, setHasUpdated] = useState(false);
   useEffect(() => {
     if (statsData) {
-      setLanguages(statsData.totalLanguages);
-      setLearners(statsData.totalLearners);
-      setAlphaMentors(statsData.totalMentors);
-      setHoursOfEnlightenment(statsData.totalHours);
-      setGoogleReviews(statsData.googleReviews);
+      setInputValue({
+        totalLanguages: statsData.totalLanguages,
+        totalLeaners: statsData.totalLeaners,
+        totalMentors: statsData.totalMentors,
+        totalHours: statsData.totalHours,
+        googleReviews: statsData.googleReviews,
+      });
     }
   }, [statsData]);
-
-  const handleLanguagesChange: ChangeEventHandler<HTMLInputElement> = (
-    event
-  ) => {
-    const value = parseInt(event.target.value);
-    if (!isNaN(value)) {
-      setLanguages(value);
+  const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const { id, value } = e.target;
+    // Only limit Google Reviews input
+    if (id === "googleReviews") {
+      // Parse as a float, limit to a maximum of 5.0, and convert to a string for input
+      const parsedValue = Math.min(parseFloat(value) || 0, 5.0).toFixed(1); 
+      setInputValue((prev) => ({
+        ...prev,
+        [id]: parseFloat(parsedValue), // Store as a float
+      }));
+    } else {
+      // For other fields, just parse as a float
+      const parsedValue = parseFloat(value) || 0;
+      setInputValue((prev) => ({
+        ...prev,
+        [id]: parsedValue,
+      }));
     }
+    setHasUpdated(true);
   };
-
-  const handleLearnersChange: ChangeEventHandler<HTMLInputElement> = (
-    event
-  ) => {
-    const value = parseInt(event.target.value);
-    if (!isNaN(value)) {
-      setLearners(value);
-    }
-  };
-
-  const handleAlphaMentorsChange: ChangeEventHandler<HTMLInputElement> = (
-    event
-  ) => {
-    const value = parseInt(event.target.value);
-    if (!isNaN(value)) {
-      setAlphaMentors(value);
-    }
-  };
-
-  const handleHoursOfEnlightenmentChange: ChangeEventHandler<
-    HTMLInputElement
-  > = (event) => {
-    const value = parseInt(event.target.value);
-    if (!isNaN(value)) {
-      setHoursOfEnlightenment(value);
-    }
-  };
-
-  const handleGoogleReviewsChange: ChangeEventHandler<HTMLInputElement> = (
-    event
-  ) => {
-    const value = parseFloat(event.target.value);
-    if (!isNaN(value)) {
-      setGoogleReviews(value);
-    }
-  };
+  // const handleRatingChange = (newRating: number) => {
+  //   setInputValue((prev) => ({ ...prev, googleReviews: newRating }));
+  //   setHasUpdated(true);
+  // };
   const handleUpdate = () => {
-    const updatedStats = {
-      totalLanguages: languages ? languages : statsData.totalLanguages,
-      totalLearners: learners ? learners : statsData.totalLeaners,
-      totalMentors: alphaMentors ? alphaMentors : statsData.totalMentors,
-      totalHours: hoursOfEnlightenment
-        ? hoursOfEnlightenment
-        : statsData.totalHours,
-      googleReviews: googleReviews ? googleReviews : statsData.googleReviews,
-    };
-    console.log(updatedStats);
-    // dispatch(updateStatsAsync(updatedStats));
+    updateStats({ ...InputValue, id: statsData._id });
+    setHasUpdated(false); // Reset the flag after updating
   };
-
-  if (status === "loading") {
+  if (isLoading || !statsData || isLoadingUpdate) {
     return (
       <div className="w-full h-full flex items-center justify-center">
-        <div className="loader">Loaders</div>{" "}
-        {/* Replace this with your actual loader component or HTML */}
+        <div className="loader">Loading...</div>
       </div>
     );
   }
-
   return (
     <div className="w-full h-full flex flex-col gap-5 p-4">
       <label
@@ -115,65 +73,61 @@ const Page = () => {
         <div className="flex flex-wrap gap-5 items-center">
           <div>
             <label
-              htmlFor="languages"
+              htmlFor="totalLanguages"
               className="block mb-2 text-xl font-light text-gray-700"
             >
               Languages
             </label>
             <input
-              id="languages"
+              id="totalLanguages"
               type="number"
-              value={languages}
-              onChange={handleLanguagesChange}
-              placeholder={statsData.totalLanguages}
+              value={InputValue.totalLanguages}
+              onChange={handleInputChange}
               className="p-2 rounded-md border focus:outline-none"
             />
           </div>
           <div>
             <label
-              htmlFor="learners"
+              htmlFor="totalLeaners"
               className="block mb-2 text-xl font-light text-gray-700"
             >
               Learners
             </label>
             <input
-              id="learners"
+              id="totalLeaners"
               type="number"
-              value={learners}
-              onChange={handleLearnersChange}
-              placeholder={statsData.totalLeaners}
+              value={InputValue.totalLeaners}
+              onChange={handleInputChange}
               className="p-2 rounded-md border focus:outline-none"
             />
           </div>
           <div>
             <label
-              htmlFor="alphaMentors"
+              htmlFor="totalMentors"
               className="block mb-2 text-xl font-light text-gray-700"
             >
               Alpha Mentors
             </label>
             <input
-              id="alphaMentors"
+              id="totalMentors"
               type="number"
-              value={alphaMentors}
-              onChange={handleAlphaMentorsChange}
-              placeholder={statsData.totalMentors}
+              value={InputValue.totalMentors}
+              onChange={handleInputChange}
               className="p-2 rounded-md border focus:outline-none"
             />
           </div>
           <div>
             <label
-              htmlFor="hoursOfEnlightenment"
+              htmlFor="totalHours"
               className="block mb-2 text-xl font-light text-gray-700"
             >
               Hours of Enlightenment
             </label>
             <input
-              id="hoursOfEnlightenment"
+              id="totalHours"
               type="number"
-              value={hoursOfEnlightenment}
-              onChange={handleHoursOfEnlightenmentChange}
-              placeholder={statsData.totalHours}
+              value={InputValue.totalHours}
+              onChange={handleInputChange}
               className="p-2 rounded-md border focus:outline-none"
             />
           </div>
@@ -187,23 +141,47 @@ const Page = () => {
             <input
               id="googleReviews"
               type="number"
-              value={googleReviews}
-              onChange={handleGoogleReviewsChange}
-              placeholder={statsData.googleReviews}
+              value={InputValue.googleReviews.toFixed(1)} // Display with one decimal
+              onChange={handleInputChange}
               className="p-2 rounded-md border focus:outline-none"
             />
+            {/* Calculate the rating based on the input value */}
+            {/* <CustomRating initialRating={InputValue.googleReviews} />  */}
           </div>
         </div>
       </div>
-      <StatusBar data={statsData} />
+      {hasUpdated ? (
+        <StatusBar
+          data={{
+            Languages: InputValue.totalLanguages,
+            HappyLearners: InputValue.totalLeaners,
+            AlphaMentors: InputValue.totalMentors,
+            HoursOfEnlightenment: InputValue.totalHours,
+            GoogleReviewsRating: InputValue.googleReviews,
+          }}
+        />
+      ) : (
+        <StatusBar
+          data={{
+            Languages: statsData.totalLanguages,
+            HappyLearners: statsData.totalLeaners,
+            AlphaMentors: statsData.totalMentors,
+            HoursOfEnlightenment: statsData.totalHours,
+            GoogleReviewsRating: statsData.googleReviews,
+          }}
+        />
+      )}
       <div className="flex w-full gap-5">
         <button className="border rounded-md p-2">Cancel</button>
-        <button className="border rounded-md p-2" onClick={handleUpdate}>
-          Update
+        <button
+          className="border rounded-md p-2 bg-[#349de3] text-white"
+          onClick={handleUpdate}
+          disabled={isLoadingUpdate}
+        >
+          {isLoadingUpdate ? "Updating..." : "Update"}
         </button>
       </div>
     </div>
   );
 };
-
 export default Page;
