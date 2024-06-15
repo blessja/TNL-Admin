@@ -14,7 +14,6 @@ interface StatusBarProps {
 
 const StatusBar: React.FC<StatusBarProps> = (data) => {
   const StatusDATA = data.data;
-  console.log(StatusDATA);
   return (
     <div>
       {" "}
