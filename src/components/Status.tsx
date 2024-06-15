@@ -1,7 +1,6 @@
 import React from "react";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { CustomRating } from "./CustomRating";
-
 interface StatusBarProps {
   data: {
     AlphaMentors: number;
@@ -11,9 +10,14 @@ interface StatusBarProps {
     Languages: number;
   };
 }
-
 const StatusBar: React.FC<StatusBarProps> = (data) => {
   const StatusDATA = data.data;
+  console.log(StatusDATA);
+  // Calculate the star rating based on GoogleReviewsRating
+  const starRating = StatusDATA.GoogleReviewsRating ?
+    StatusDATA.GoogleReviewsRating / 2 :
+    2; // Default to 2 if no GoogleReviewsRating is provided
+
   return (
     <div>
       {" "}
@@ -30,7 +34,7 @@ const StatusBar: React.FC<StatusBarProps> = (data) => {
             </div>
             <div className="flex-col justify-center items-center gap-3 inline-flex w-full lg:w-auto">
               <div className="text-center max-sm:text-3xl text-stone-900 text-5xl font-bold">
-                {StatusDATA.HappyLearners ? StatusDATA.HappyLearners : " 5000+"}
+                {StatusDATA.HappyLearners ? StatusDATA.HappyLearners : " 5000"}+
               </div>
               <div className="w-fit xl:w-[180px] lg:w-[180px] text-center text-black text-opacity-60 mx-auto max-sm:text-base xl:text-xl lg:text-lg  font-normal">
                 Happy Learners
@@ -38,7 +42,7 @@ const StatusBar: React.FC<StatusBarProps> = (data) => {
             </div>
             <div className="flex-col justify-center items-center gap-3 inline-flex w-full lg:w-auto">
               <div className="text-center max-sm:text-3xl text-stone-900 text-5xl font-bold">
-                {StatusDATA.AlphaMentors ? StatusDATA.AlphaMentors : " 150+"}
+                {StatusDATA.AlphaMentors ? StatusDATA.AlphaMentors : " 150"}+
               </div>
               <div className="w-fit xl:w-[165px] lg:w-[165px] text-center text-black text-opacity-60 xl:text-xl lg:text-lg  mx-auto max-sm:text-base font-normal">
                 Alpha Mentors
@@ -48,7 +52,7 @@ const StatusBar: React.FC<StatusBarProps> = (data) => {
               <div className="text-center text-stone-900 text-5xl font-bold max-sm:text-3xl">
                 {StatusDATA.HoursOfEnlightenment
                   ? StatusDATA.HoursOfEnlightenment
-                  : " 50000+"}
+                  : " 50000"}+
               </div>
               <div className="w-fit xl:w-[267px] lg:w-[267px] mx-auto max-sm:text-base text-center text-black text-opacity-60 xl:text-xl lg:text-lg  font-normal">
                 Hours of Enlightenment
@@ -57,7 +61,7 @@ const StatusBar: React.FC<StatusBarProps> = (data) => {
             <div className="flex-col justify-start items-center gap-3 inline-flex w-full lg:w-auto">
               <div className="justify-start items-center gap-3 flex">
                 <div className="text-center text-stone-900 text-5xl justify-center items-center max-sm:text-3xl font-bold gap-x-[8px] flex">
-                  4.9
+                  {StatusDATA.GoogleReviewsRating ? StatusDATA.GoogleReviewsRating : "2"}
                   {StatusDATA.HappyLearners ? (
                     <CustomRating
                       initialRating={StatusDATA.GoogleReviewsRating}
@@ -77,5 +81,4 @@ const StatusBar: React.FC<StatusBarProps> = (data) => {
     </div>
   );
 };
-
 export default StatusBar;
