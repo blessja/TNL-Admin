@@ -49,7 +49,156 @@ const batches = [
 const Page = () => {
   return (
     <div>
-      <div className="my-[112px]  flex justify-center flex-col items-center">
+      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <fieldset className="mb-4">
+          <legend className="text-lg font-semibold">Trainer Information</legend>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="trainerName"
+            >
+              Trainer Name:
+            </label>
+            <input
+              type="text"
+              id="trainerName"
+              name="trainerName"
+              value="John Doe"
+              readOnly
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="trainerImage"
+            >
+              Trainer Image:
+            </label>
+            <input
+              type="file"
+              id="trainerImage"
+              name="trainerImage"
+              readOnly
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="trainerLanguage"
+            >
+              Trainer Language:
+            </label>
+            <input
+              type="text"
+              id="trainerLanguage"
+              name="trainerLanguage"
+              value="English"
+              readOnly
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+        </fieldset>
+
+        <fieldset className="mb-4">
+          <legend className="text-lg font-semibold">Batch Information</legend>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="batchStart"
+            >
+              Batch Start Date:
+            </label>
+            <input
+              type="datetime-local"
+              id="batchStart"
+              name="batchStart"
+              value="2024-05-20T09:00"
+              readOnly
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="noOfSeats"
+            >
+              Number of Seats:
+            </label>
+            <input
+              type="number"
+              id="noOfSeats"
+              name="noOfSeats"
+              value="30"
+              readOnly
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="startTime"
+            >
+              Start Time:
+            </label>
+            <input
+              type="datetime-local"
+              id="startTime"
+              name="startTime"
+              value="2024-05-25T09:00"
+              readOnly
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="endTime"
+            >
+              End Time:
+            </label>
+            <input
+              type="datetime-local"
+              id="endTime"
+              name="endTime"
+              value="2024-05-25T11:00"
+              readOnly
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="certification"
+            >
+              Certification:
+            </label>
+            <input
+              type="text"
+              id="certification"
+              name="certification"
+              value="Certified Trainer"
+              readOnly
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+        </fieldset>
+
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Submit
+        </button>
+      </form>
+
+      <div className="mb-[112px] mt-[50px]  flex justify-center flex-col items-center">
         <h1 className="text-stone-900 text-2xl text-center mb-[60px] font-bold ">
           Upcoming Batches
         </h1>
@@ -67,9 +216,13 @@ const Page = () => {
                 <div
                   className={`${batch.background}  h-[240px] rounded-t-xl flex items-center  w-full relative`}
                 >
-                  <div className={`${batch.overlay} h-[60%] w-full absolute -z-0`}></div>
+                  <div
+                    className={`${batch.overlay} h-[60%] w-full absolute -z-0`}
+                  ></div>
                   {batch.overlaySecondary && (
-                    <div className={`${batch.overlaySecondary} w-[33%] h-full absolute -z-0`}></div>
+                    <div
+                      className={`${batch.overlaySecondary} w-[33%] h-full absolute -z-0`}
+                    ></div>
                   )}
                   <Image
                     src={batch.image}
