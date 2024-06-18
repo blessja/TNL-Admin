@@ -12,10 +12,14 @@ const Page = () => {
     console.log("FAQ Form Data:", formData);
     // You can perform further actions with the form data, such as sending it to a server
   };
+ 
   const handleInfoSectionSubmit = (formData: any) => {
-    console.log("Info Section Form Data:", formData);
+    const updatedFormData = { ...formData, category: "Everything you need to know" };
+    addFAQs(updatedFormData);
+    console.log("Info Section Form Data:", updatedFormData);
     // You can perform further actions with the form data, such as sending it to a server
   };
+
   const filterData = { filter: "language", type: "mandarin" };
 
   if (isLoading || !data||isAdding) {
@@ -30,12 +34,11 @@ const Page = () => {
   // console.log(englishData);
   // Filter data into two categories
   const faqData = data.filter(
-    (item: any) => item.language === "Mandarine" && item.context === "StudyAbroad"
+    (item: any) => item.language === "Mandarine" && item.context === "StudyAbroad" && item.category === "General" 
   );
   const infoSectionData = data.filter(
     (item: any) =>
-      item.category === "Everything you need to know" &&
-      item.context === "StudyAbroad"
+      item.category === "Everything you need to know" && item.context === "StudyAbroad" && item.language === "Mandarine"
   );
 
   return (
@@ -48,11 +51,15 @@ const Page = () => {
       </label>
       {/* FAQ&apos;s */}
       <FormSection data={faqData} title="FAQ's" onSubmit={handleFAQSubmit} context={"StudyAbroad"} language={"Mandarine"} />
+      <div className="py-10">
       <FormSection
         data={infoSectionData}
+        category ={"Everything you need to know"}
+        context={"StudyAbroad"} language={"Mandarine"}
         title="Everything you need to know section"
         onSubmit={handleInfoSectionSubmit}
       />
+      </div>
     </div>
   );
 };
