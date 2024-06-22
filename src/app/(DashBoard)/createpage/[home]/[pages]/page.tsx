@@ -140,169 +140,237 @@ const Page = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
-        <div className="flex items-center justify-between">
+        <hr />
+        <div>
+          <div>Why Should Section</div>
+          <div className="mt-6">
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" value="" className="sr-only peer" />
+              <div className="group peer ring-0 bg-gray-400  rounded-full outline-none duration-300 after:duration-300 w-20 h-8  shadow-md peer-checked:bg-emerald-500  peer-focus:outline-none  after:content-['✖️']  after:rounded-full after:absolute after:bg-gray-50 after:outline-none after:h-6 after:w-6 after:top-1 after:left-1 after:-rotate-180 after:flex after:justify-center after:items-center peer-checked:after:translate-x-12 peer-checked:after:content-['✔️'] peer-hover:after:scale-95 peer-checked:after:rotate-0"></div>
+            </label>
+          </div>
+        </div>
+        <hr />
+        <div>
+          <div>Upcoming Batches</div>
+          <div className="mt-6">
+            <fieldset className="mb-4">
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 text-lg font-bold mb-2"
+                  htmlFor="trainerName"
+                >
+                  Trainer Name:
+                </label>
+                <input
+                  type="text"
+                  id="trainerName"
+                  name="trainerName"
+                  value="John Doe"
+                  readOnly
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+              </div>
+
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 text-lg font-bold mb-2"
+                  htmlFor="trainerImage"
+                >
+                  Trainer Image:
+                </label>
+                <input
+                  type="file"
+                  id="trainerImage"
+                  name="trainerImage"
+                  readOnly
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+              </div>
+
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 text-lg font-bold mb-2"
+                  htmlFor="trainerLanguage"
+                >
+                  Trainer Language:
+                </label>
+                <input
+                  type="text"
+                  id="trainerLanguage"
+                  name="trainerLanguage"
+                  value="English"
+                  readOnly
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+              </div>
+            </fieldset>
+
+            <fieldset className="mb-4">
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 text-lg font-bold mb-2"
+                  htmlFor="batchStart"
+                >
+                  Batch Start Date:
+                </label>
+                <input
+                  type="datetime-local"
+                  id="batchStart"
+                  name="batchStart"
+                  value="2024-05-20T09:00"
+                  readOnly
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+              </div>
+
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 text-lg font-bold mb-2"
+                  htmlFor="noOfSeats"
+                >
+                  Number of Seats:
+                </label>
+                <input
+                  type="number"
+                  id="noOfSeats"
+                  name="noOfSeats"
+                  value="30"
+                  readOnly
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+              </div>
+
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 text-lg font-bold mb-2"
+                  htmlFor="startTime"
+                >
+                  Start Time:
+                </label>
+                <input
+                  type="datetime-local"
+                  id="startTime"
+                  name="startTime"
+                  value="2024-05-25T09:00"
+                  readOnly
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+              </div>
+
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 text-lg font-bold mb-2"
+                  htmlFor="endTime"
+                >
+                  End Time:
+                </label>
+                <input
+                  type="datetime-local"
+                  id="endTime"
+                  name="endTime"
+                  value="2024-05-25T11:00"
+                  readOnly
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 text-lg font-bold mb-2"
+                  htmlFor="certification"
+                >
+                  Certification:
+                </label>
+                <input
+                  type="text"
+                  id="certification"
+                  name="certification"
+                  value="Certified Trainer"
+                  readOnly
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <hr />
+        <div>
+          <div>Any Level Section</div>
+          <div className="mt-6">
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" value="" className="sr-only peer" />
+              <div className="group peer ring-0 bg-gray-400  rounded-full outline-none duration-300 after:duration-300 w-20 h-8  shadow-md peer-checked:bg-emerald-500  peer-focus:outline-none  after:content-['✖️']  after:rounded-full after:absolute after:bg-gray-50 after:outline-none after:h-6 after:w-6 after:top-1 after:left-1 after:-rotate-180 after:flex after:justify-center after:items-center peer-checked:after:translate-x-12 peer-checked:after:content-['✔️'] peer-hover:after:scale-95 peer-checked:after:rotate-0"></div>
+            </label>
+          </div>
+        </div>
+        <hr />
+        <div>
+          <div>Exams</div>
+          <div className="mt-6">
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" value="" className="sr-only peer" />
+              <div className="group peer ring-0 bg-gray-400  rounded-full outline-none duration-300 after:duration-300 w-20 h-8  shadow-md peer-checked:bg-emerald-500  peer-focus:outline-none  after:content-['✖️']  after:rounded-full after:absolute after:bg-gray-50 after:outline-none after:h-6 after:w-6 after:top-1 after:left-1 after:-rotate-180 after:flex after:justify-center after:items-center peer-checked:after:translate-x-12 peer-checked:after:content-['✔️'] peer-hover:after:scale-95 peer-checked:after:rotate-0"></div>
+            </label>
+          </div>
+        </div>
+        <hr />
+        <div>
+          <div>Review</div>
+          <div className="mt-6">
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" value="" className="sr-only peer" />
+              <div className="group peer ring-0 bg-gray-400  rounded-full outline-none duration-300 after:duration-300 w-20 h-8  shadow-md peer-checked:bg-emerald-500  peer-focus:outline-none  after:content-['✖️']  after:rounded-full after:absolute after:bg-gray-50 after:outline-none after:h-6 after:w-6 after:top-1 after:left-1 after:-rotate-180 after:flex after:justify-center after:items-center peer-checked:after:translate-x-12 peer-checked:after:content-['✔️'] peer-hover:after:scale-95 peer-checked:after:rotate-0"></div>
+            </label>
+          </div>
+        </div>
+        <hr />
+        <div>
+          <div>FAQs</div>
+          <div className="mt-6">
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" value="" className="sr-only peer" />
+              <div className="group peer ring-0 bg-gray-400  rounded-full outline-none duration-300 after:duration-300 w-20 h-8  shadow-md peer-checked:bg-emerald-500  peer-focus:outline-none  after:content-['✖️']  after:rounded-full after:absolute after:bg-gray-50 after:outline-none after:h-6 after:w-6 after:top-1 after:left-1 after:-rotate-180 after:flex after:justify-center after:items-center peer-checked:after:translate-x-12 peer-checked:after:content-['✔️'] peer-hover:after:scale-95 peer-checked:after:rotate-0"></div>
+            </label>
+            <div className="w-full flex flex-col mt-3 gap-5">
+              <input
+                id="question"
+                type="text"
+                placeholder="Write your Question here..."
+                className="p-2 rounded-md border"
+              />
+              <textarea
+                id="Answer"
+                placeholder="Write your Answer here..."
+                className="p-2 rounded-md border"
+              />
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div>
+          <div>Finest Section</div>
+          <div className="mt-6">
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" value="" className="sr-only peer" />
+              <div className="group peer ring-0 bg-gray-400  rounded-full outline-none duration-300 after:duration-300 w-20 h-8  shadow-md peer-checked:bg-emerald-500  peer-focus:outline-none  after:content-['✖️']  after:rounded-full after:absolute after:bg-gray-50 after:outline-none after:h-6 after:w-6 after:top-1 after:left-1 after:-rotate-180 after:flex after:justify-center after:items-center peer-checked:after:translate-x-12 peer-checked:after:content-['✔️'] peer-hover:after:scale-95 peer-checked:after:rotate-0"></div>
+            </label>
+          </div>
+        </div>
+        <div className="flex gap-10 items-center ">
           <button
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            Submit
+            Update
+          </button>
+          <button
+            type="submit"
+            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Cancel
           </button>
         </div>
       </form>
-      <hr />
-      <div>
-        <div>Why Should Section</div>
-        <div className="mt-6">
-          <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-            <input
-              type="checkbox"
-              name="toggle"
-              id="toggle"
-              checked={isSwitchOn}
-              onChange={handleSwitchToggle}
-              className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
-            />
-            <label
-              htmlFor="toggle"
-              className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
-            ></label>
-          </div>
-        </div>
-      </div>
-      <hr />
-      <div>
-        <div>Upcoming Batches</div>
-        <div className="mt-6">
-          <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-            <input
-              type="checkbox"
-              name="toggle"
-              id="toggle"
-              checked={isSwitchOn}
-              onChange={handleSwitchToggle}
-              className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
-            />
-            <label
-              htmlFor="toggle"
-              className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
-            ></label>
-          </div>
-        </div>
-      </div>
-      <hr />
-      <div>
-        <div>Any Level Section</div>
-        <div className="mt-6">
-          <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-            <input
-              type="checkbox"
-              name="toggle"
-              id="toggle"
-              checked={isSwitchOn}
-              onChange={handleSwitchToggle}
-              className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
-            />
-            <label
-              htmlFor="toggle"
-              className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
-            ></label>
-          </div>
-        </div>
-      </div>
-      <hr />
-      <div>
-        <div>Exams</div>
-        <div className="mt-6">
-          <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-            <input
-              type="checkbox"
-              name="toggle"
-              id="toggle"
-              checked={isSwitchOn}
-              onChange={handleSwitchToggle}
-              className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
-            />
-            <label
-              htmlFor="toggle"
-              className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
-            ></label>
-          </div>
-        </div>
-      </div>
-      <hr />
-      <div>
-        <div>Review</div>
-        <div className="mt-6">
-          <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-            <input
-              type="checkbox"
-              name="toggle"
-              id="toggle"
-              checked={isSwitchOn}
-              onChange={handleSwitchToggle}
-              className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
-            />
-            <label
-              htmlFor="toggle"
-              className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
-            ></label>
-          </div>
-        </div>
-      </div>
-      <hr />
-      <div>
-        <div>FAQs</div>
-        <div className="mt-6">
-          <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-            <input
-              type="checkbox"
-              name="toggle"
-              id="toggle"
-              checked={isSwitchOn}
-              onChange={handleSwitchToggle}
-              className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
-            />
-            <label
-              htmlFor="toggle"
-              className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
-            ></label>
-          </div>
-        </div>
-      </div>
-      <hr />
-      <div>
-        <div>Finest Section</div>
-        <div className="mt-6">
-          <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-            <input
-              type="checkbox"
-              name="toggle"
-              id="toggle"
-              checked={isSwitchOn}
-              onChange={handleSwitchToggle}
-              className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
-            />
-            <label
-              htmlFor="toggle"
-              className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
-            ></label>
-          </div>
-        </div>
-      </div>
-      <div className="flex gap-10 items-center ">
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
-          Update
-        </button>
-        <button
-          type="submit"
-          className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
-          Cancel
-        </button>
-      </div>
     </div>
   );
 };
