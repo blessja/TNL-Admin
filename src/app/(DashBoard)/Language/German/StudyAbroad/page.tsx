@@ -6,6 +6,7 @@ import React from "react";
 const Page = () => {
   const {data,isLoading}=useGetFAQsQuery("");
   const [addFAQs,{isLoading:isAdding}]=useAddFAQsMutation();
+  
   const handleFAQSubmit = (formData: any) => {
     addFAQs(formData);
     console.log("FAQ Form Data:", formData);
@@ -13,9 +14,12 @@ const Page = () => {
   };
 
   const handleInfoSectionSubmit = (formData: any) => {
-    console.log("Info Section Form Data:", formData);
+    const updatedFormData = { ...formData, category: "Everything you need to know" };
+    addFAQs(updatedFormData);
+    console.log("Info Section Form Data:", updatedFormData);
     // You can perform further actions with the form data, such as sending it to a server
   };
+
   const filterData = { filter: "language", type: "german" };
 
   if (status === "loading" || !data) {
@@ -30,13 +34,13 @@ const Page = () => {
   // console.log(englishData);
   // Filter data into two categories
   const faqData = data.filter(
-    (item: any) => item.language === "German" && item.context === "StudyAbroad"
+    (item: any) => item.language === "German" && item.context === "StudyAbroad" && item.category === "General" 
   );
   const infoSectionData = data.filter(
     (item: any) =>
-      item.category === "Everything you need to know" &&
-      item.context === "StudyAbroad"
+      item.category === "Everything you need to know" && item.context === "StudyAbroad" && item.language === "German"
   );
+
 
   return (
     <div className="w-full h-full flex flex-col gap-5 p-4">
@@ -48,11 +52,15 @@ const Page = () => {
       </label>
       {/* FAQ&apos;s */}
       <FormSection data={faqData} title="FAQ's" onSubmit={handleFAQSubmit} context={"StudyAbroad"} language={"German"}/>
+      <div className="py-10">
       <FormSection
         data={infoSectionData}
+        category ={"Everything you need to know"}
+        context={"StudyAbroad"} language={"German"}
         title="Everything you need to know section"
         onSubmit={handleInfoSectionSubmit}
       />
+      </div>
     </div>
   );
 };

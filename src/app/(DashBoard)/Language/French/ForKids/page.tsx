@@ -13,9 +13,12 @@ const Page = () => {
   };
 
   const handleInfoSectionSubmit = (formData: any) => {
-    console.log("Info Section Form Data:", formData);
+    const updatedFormData = { ...formData, category: "Everything you need to know" };
+    addFAQs(updatedFormData);
+    console.log("Info Section Form Data:", updatedFormData);
     // You can perform further actions with the form data, such as sending it to a server
   };
+  
   const filterData = { filter: "language", type: "french" };
 
   if (isLoading || !data||isAdding) {
@@ -26,19 +29,17 @@ const Page = () => {
       </div>
     );
   }
-  // const englishData = data.filter((item: any) => item.language === "English");
-  // console.log(englishData);
-  // Filter data into two categories
-   const faqData = data.filter(
-    (item: any) => item.language === "French" && item.context === "Kids"
+
+  const faqData = data.filter(
+    (item: any) => item.language === "French" && item.context === "Kids" && item.category == "General"
   );
   const infoSectionData = data.filter(
     (item: any) =>
-      item.category === "Everything you need to know" &&
-      item.context === "Kids"  );
+      item.language === "French" && item.category === "Everything you need to know" && item.context === "Kids"
+  );
 
   return (
-    <div className="w-full h-full flex flex-col gap-5 p-4">
+    <div className="w-full h-full flex flex-col  gap-5 p-4">
       <label
         htmlFor="inputData"
         className="block mb-2 text-3xl font-bold text-gray-700"
@@ -47,11 +48,15 @@ const Page = () => {
       </label>
       {/* FAQ&apos;s */}
       <FormSection data={faqData} title="FAQ's" onSubmit={handleFAQSubmit} context={"Kids"} language={"French"}/>
+      <div className="py-10">
       <FormSection
         data={infoSectionData}
+        category ={"Everything you need to know"}
+        context={"Kids"} language={"French"}
         title="Everything you need to know section"
         onSubmit={handleInfoSectionSubmit}
       />
+      </div>
     </div>
   );
 };

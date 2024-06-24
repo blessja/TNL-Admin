@@ -12,6 +12,7 @@ export default function Home() {
       { title: "About", lastUpdated: "2024-05-12" },
       { title: "Promo", lastUpdated: "2024-05-11" },
       { title: "Stats Bar", lastUpdated: "2024-05-10" },
+      { title: "Banner Bar", lastUpdated: "2024-05-10" },
       { title: "News Section", lastUpdated: "2024-05-09" },
     ],
     pages: [

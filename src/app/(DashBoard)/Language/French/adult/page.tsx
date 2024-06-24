@@ -7,6 +7,8 @@ const Page = () => {
   const {data,isLoading}=useGetFAQsQuery("");
   const [addFAQs,{isLoading:isAdding}]=useAddFAQsMutation();
   console.log(data)
+
+
   const handleFAQSubmit = (formData: any) => {
     addFAQs(formData);
     console.log("FAQ Form Data:", formData);
@@ -14,7 +16,9 @@ const Page = () => {
   };
 
   const handleInfoSectionSubmit = (formData: any) => {
-    console.log("Info Section Form Data:", formData);
+    const updatedFormData = { ...formData, category: "Everything you need to know" };
+    addFAQs(updatedFormData);
+    console.log("Info Section Form Data:", updatedFormData);
     // You can perform further actions with the form data, such as sending it to a server
   };
 
@@ -32,12 +36,11 @@ const Page = () => {
   // console.log(englishData);
   // Filter data into two categories
   const faqData = data.filter(
-    (item: any) => item.language === "French" && item.context === "Adult"
+    (item: any) => item.language === "French" && item.context === "Adult" && item.category == "General"
   );
   const infoSectionData = data.filter(
     (item: any) =>
-      item.category === "Everything you need to know" &&
-      item.context === "Adult"
+      item.language === "French" && item.category === "Everything you need to know" && item.context === "Adult"
   );
 
   return (
@@ -50,11 +53,15 @@ const Page = () => {
       </label>
       {/* FAQ&apos;s */}
       <FormSection data={faqData} title="FAQ's" onSubmit={handleFAQSubmit}  context={"Adult"} language={"French"}/>
+      <div className="py-10">
       <FormSection
         data={infoSectionData}
+        category ={"Everything you need to know"}
+        context={"Adult"} language={"French"}
         title="Everything you need to know section"
         onSubmit={handleInfoSectionSubmit}
       />
+      </div>
     </div>
   );
 };

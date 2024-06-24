@@ -2,7 +2,7 @@ import {createApi,fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
     baseQuery: fetchBaseQuery({baseUrl:"http://3.110.121.13"}),
-    tagTypes:["Promos","News","FAQ","Stats"],
+    tagTypes:["Promos","News","FAQ","Stats","Banner"],
     endpoints:(builder) => ({
         // -----------------------------promo queries-------------------------------
 
@@ -58,15 +58,29 @@ export const api = createApi({
             providesTags: ["Stats"],
           }),
   
-          updateStats: builder.mutation({
-            query: ({id,...updatedStatsData}) => ({
-              url: `/api/stats/update/${id}`,
-              method: "PATCH",
-              body: updatedStatsData, 
-            }),
-            invalidatesTags: ["Stats"], 
-          }),
+        updateStats: builder.mutation({
+        query: ({id,...updatedStatsData}) => ({
+            url: `/api/stats/update/${id}`,
+            method: "PATCH",
+            body: updatedStatsData, 
+        }),
+        invalidatesTags: ["Stats"], 
+        }),
+
+        //
+        getBanner: builder.query({
+            query: () => "/api/banner/get-all",
+            providesTags: ["Banner"],
+        }),
+        updateBanner: builder.mutation({
+        query: ({ pageName, ...updatedBannerData }) => ({
+            url: `/api/banner/update/${pageName}`,
+            method: "PATCH",
+            body: updatedBannerData,
+        }),
+        invalidatesTags: ["Banner"],
+        }),
     })
 })
 
-export const {useGetPromoQuery,useUpdatePromoMutation,useGetNewsQuery,useGetFAQsQuery,useGetFilteredFAQsQuery,useAddFAQsMutation,useUpdateFAQsMutation, useGetStatsQuery, useUpdateStatsMutation} = api;
+export const {useGetPromoQuery,useUpdatePromoMutation,useGetNewsQuery,useGetFAQsQuery,useGetFilteredFAQsQuery,useAddFAQsMutation,useUpdateFAQsMutation, useGetStatsQuery, useUpdateStatsMutation, useGetBannerQuery, useUpdateBannerMutation} = api;
