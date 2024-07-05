@@ -17,6 +17,8 @@ const BreadCrumbs = () => {
         return "Updated the latest news.";
       case "/Language":
         return "Update The language courses and resources.";
+      case "/createpage":
+        return "Create New Language / Exam  Page ";
       default:
         return "Get Started...";
     }
