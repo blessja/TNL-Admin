@@ -16,7 +16,7 @@ const Page = () => {
   const [updatePromo,{isLoading:isLoadingUpdate}] = useUpdatePromoMutation();
 
   const handleUpdate = () => {
-    updatePromo({...InputValue,id:data[1]._id});
+    updatePromo({...InputValue,id:data[0]._id});
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

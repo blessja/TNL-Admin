@@ -96,7 +96,7 @@ const FaqAccordion: React.FC<Props> = ({ data }) => {
               : "py-0 max-h-0 overflow-hidden"
               }`}
           >
-            <p>{item.answer}</p>
+            <p dangerouslySetInnerHTML={{__html:item.answer}}></p>
           </div>
         </div>
       ))}

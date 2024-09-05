@@ -12,14 +12,12 @@ const Page = () => {
   const handleFAQSubmit = (formData: any) => {
     addFAQs(formData);
     console.log("FAQ Form Data:", formData);
-    // You can perform further actions with the form data, such as sending it to a server
   };
 
   const handleInfoSectionSubmit = (formData: any) => {
     const updatedFormData = { ...formData, category: "Everything you need to know" };
     addFAQs(updatedFormData);
     console.log("Info Section Form Data:", updatedFormData);
-    // You can perform further actions with the form data, such as sending it to a server
   };
 
   const filterData = { filter: "language", type: "english" };
@@ -28,7 +26,6 @@ const Page = () => {
     return (
       <div className="w-full h-full flex items-center justify-center">
         <div className="loader">Loading...</div>{" "}
-        {/* Replace this with your actual loader component or HTML */}
       </div>
     );
   }
