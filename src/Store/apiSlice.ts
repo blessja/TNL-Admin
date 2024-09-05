@@ -1,88 +1,109 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
-    baseQuery: fetchBaseQuery({ baseUrl: "http://3.110.121.13" }),
-    tagTypes: ["Promos", "News", "FAQ","Stats"],
-    endpoints: (builder) => ({
-        // -----------------------------promo queries-------------------------------
+  // baseQuery: fetchBaseQuery({baseUrl:"http://3.110.121.13"}),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://backend.thelanguagenetwork.co/",
+  }),
+  tagTypes: ["Promos", "News", "FAQ", "Stats", "Banner"],
+  endpoints: (builder) => ({
+    // -----------------------------promo queries-------------------------------
 
-        getPromo: builder.query({
-            query: () => "/api/promo/get-all",
-            providesTags: ["Promos"]
-        }),
-        updatePromo: builder.mutation({
-            query: ({ id, ...updatedPromo }) => ({
-                url: `/api/promo/update/${id}`,
-                method: "PATCH",
-                body: updatedPromo
-            }),
-            invalidatesTags: ["Promos"]
-        }),
-        // -----------------------------news queries-------------------------------
+    getPromo: builder.query({
+      query: () => "/api/promo/get-all",
+      providesTags: ["Promos"],
+    }),
+    updatePromo: builder.mutation({
+      query: ({ id, ...updatedPromo }) => ({
+        url: `/api/promo/update/${id}`,
+        method: "PATCH",
+        body: updatedPromo,
+      }),
+      invalidatesTags: ["Promos"],
+    }),
+    // -----------------------------news queries-------------------------------
 
-        getNews: builder.query({
-            query: () => "/api/news/get-all",
-            providesTags: ["News"]
-        }),
+    getNews: builder.query({
+      query: () => "/api/news/get-all",
+      providesTags: ["News"],
+    }),
 
-        // -----------------------------FAQs queries-------------------------------
+    // -----------------------------FAQs queries-------------------------------
 
-        getFAQs: builder.query({
-            query: () => `/api/faqs/get-all`,
-            providesTags: ["FAQ"]
-        }),
-        getFilteredFAQs: builder.query({
-            query: ({ data }) => `/api/faqs/filter?${data.filter}=${data.type}`,
-            providesTags: ["FAQ"]
-        }),
-        addFAQs: builder.mutation({
-            query: (FAQ) => ({
-                url: `/api/faqs/create`,
-                method: "POST",
-                body: FAQ
-            }),
-            invalidatesTags: ["FAQ"]
-        }),
-        updateFAQs: builder.mutation({
-            query: ({ id, ...updatedFAQ }) => ({
-                url: `/api/faqs/update/${id}`,
-                method: "PATCH",
-                body: updatedFAQ
-            }),
-            invalidatesTags: ["FAQ"]
-        }),
-        deleteFAQs: builder.mutation({
-            query: (id) => ({
-                url: `/api/faqs/delete/${id}`,
-                method: "DELETE",
-            }),
-            invalidatesTags: ["FAQ"],
-        }),
+    getFAQs: builder.query({
+      query: () => `/api/faqs/get-all`,
+      providesTags: ["FAQ"],
+    }),
+    getFilteredFAQs: builder.query({
+      query: ({ data }) => `/api/faqs/filter?${data.filter}=${data.type}`,
+      providesTags: ["FAQ"],
+    }),
+    addFAQs: builder.mutation({
+      query: (FAQ) => ({
+        url: `/api/faqs/create`,
+        method: "POST",
+        body: FAQ,
+      }),
+      invalidatesTags: ["FAQ"],
+    }),
+    updateFAQs: builder.mutation({
+      query: ({ id, ...updatedFAQ }) => ({
+        url: `/api/faqs/update/${id}`,
+        method: "PATCH",
+        body: updatedFAQ,
+      }),
+      invalidatesTags: ["FAQ"],
+    }),
+    deleteFAQs: builder.mutation({
+      query: (id) => ({
+        url: `/api/faqs/delete/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["FAQ"],
+    }),
 
-        //
-        getStats: builder.query({
-            query: () => "/api/stats/get-all",
-            providesTags: ["Stats"],
-        }),
+    //
+    getStats: builder.query({
+      query: () => "/api/stats/get-all",
+      providesTags: ["Stats"],
+    }),
 
-        updateStats: builder.mutation({
-            query: ({ id, ...updatedStatsData }) => ({
-                url: `/api/stats/update/${id}`,
-                method: "PATCH",
-                body: updatedStatsData,
-            }),
-            invalidatesTags: ["Stats"],
-        }),
-    })
-})
+    updateStats: builder.mutation({
+      query: ({ id, ...updatedStatsData }) => ({
+        url: `/api/stats/update/${id}`,
+        method: "PATCH",
+        body: updatedStatsData,
+      }),
+      invalidatesTags: ["Stats"],
+    }),
 
-export const { useGetPromoQuery,
-    useUpdatePromoMutation,
-    useGetNewsQuery, useGetFAQsQuery,
-    useGetFilteredFAQsQuery,
-    useAddFAQsMutation,
-    useUpdateFAQsMutation,
-    useDeleteFAQsMutation,
-    useGetStatsQuery,
-    useUpdateStatsMutation
+    //
+    getBanner: builder.query({
+      query: () => "/api/banner/get-all",
+      providesTags: ["Banner"],
+    }),
+    updateBanner: builder.mutation({
+      query: ({ pageName, ...updatedBannerData }) => ({
+        url: `/api/banner/update/${pageName}`,
+        method: "PATCH",
+        body: updatedBannerData,
+      }),
+      invalidatesTags: ["Banner"],
+    }),
+  }),
+});
+
+export const {
+  useGetPromoQuery,
+  useUpdatePromoMutation,
+  useGetNewsQuery,
+  useGetFAQsQuery,
+  useGetFilteredFAQsQuery,
+  useAddFAQsMutation,
+  useUpdateFAQsMutation,
+  useDeleteFAQsMutation,
+  useGetStatsQuery,
+  useUpdateStatsMutation,
+  useGetBannerQuery,
+  useUpdateBannerMutation,
 } = api;

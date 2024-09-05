@@ -2,7 +2,7 @@
 
 import { useAddFAQsMutation, useGetFAQsQuery } from "@/Store/apiSlice";
 import FormSection from "@/components/Reusable/FormSection";
-import { useAppDispatch } from "@/helpers/hooks";
+// import { useAppDispatch } from "@/helpers/hooks";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 

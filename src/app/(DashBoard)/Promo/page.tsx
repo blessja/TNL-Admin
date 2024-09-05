@@ -16,7 +16,7 @@ const Page = () => {
   const [updatePromo,{isLoading:isLoadingUpdate}] = useUpdatePromoMutation();
 
   const handleUpdate = () => {
-    updatePromo({...InputValue,id:data[1]._id});
+    updatePromo({...InputValue,id:data[0]._id});
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,6 +32,20 @@ const Page = () => {
       </div>
     );
   }
+
+  const dataObject = data.reduce((acc: any, item: any) => {
+    acc["Data"] = {
+      topic: item.topic,
+      label: item.label,
+      link: item.link,
+    };
+    return acc;
+  }, {});
+
+  const hasData = dataObject.Data && dataObject.Data.label;
+
+  console.log(data);
+  console.log(dataObject);
 
   return (
     <div className="w-full h-full flex flex-col gap-5 p-4 ">

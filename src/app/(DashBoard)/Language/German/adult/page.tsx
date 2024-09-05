@@ -23,7 +23,7 @@ const Page = () => {
   const filterData = { filter: "language", type: "german" };
 
 
-  if (status === "loading" || !data) {
+  if (isLoading || !data||isAdding) {
     return (
       <div className="w-full h-full flex items-center justify-center">
         <div className="loader">Loader...</div>{" "}

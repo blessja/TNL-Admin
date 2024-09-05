@@ -3,6 +3,7 @@ import { useGetStatsQuery, useUpdateStatsMutation } from "@/Store/apiSlice";
 import StatusBar from "@/components/Status";
 import React, { ChangeEventHandler, useEffect, useState } from "react";
 import { CustomRating } from "@/components/CustomRating";
+
 const Page = () => {
   const { data: statsData, isLoading } = useGetStatsQuery("");
   const [updateStats, { isLoading: isLoadingUpdate }] =
@@ -24,6 +25,13 @@ const Page = () => {
         totalHours: statsData.totalHours,
         googleReviews: statsData.googleReviews,
       });
+      setInputValue({
+        totalLanguages: statsData.totalLanguages,
+        totalLeaners: statsData.totalLeaners,
+        totalMentors: statsData.totalMentors,
+        totalHours: statsData.totalHours,
+        googleReviews: statsData.googleReviews,
+      });
     }
   }, [statsData]);
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -31,7 +39,7 @@ const Page = () => {
     // Only limit Google Reviews input
     if (id === "googleReviews") {
       // Parse as a float, limit to a maximum of 5.0, and convert to a string for input
-      const parsedValue = Math.min(parseFloat(value) || 0, 5.0).toFixed(1); 
+      const parsedValue = Math.min(parseFloat(value) || 0, 5.0).toFixed(1);
       setInputValue((prev) => ({
         ...prev,
         [id]: parseFloat(parsedValue), // Store as a float
@@ -50,10 +58,16 @@ const Page = () => {
   //   setInputValue((prev) => ({ ...prev, googleReviews: newRating }));
   //   setHasUpdated(true);
   // };
+
   const handleUpdate = () => {
     updateStats({ ...InputValue, id: statsData._id });
     setHasUpdated(false); // Reset the flag after updating
   };
+  // if (isLoading || !statsData || isLoadingUpdate) {
+  //   updateStats({ ...InputValue, id: statsData._id });
+  //   setHasUpdated(false); // Reset the flag after updating
+  // }
+
   if (isLoading || !statsData || isLoadingUpdate) {
     return (
       <div className="w-full h-full flex items-center justify-center">
@@ -145,6 +159,8 @@ const Page = () => {
               onChange={handleInputChange}
               className="p-2 rounded-md border focus:outline-none"
             />
+            {/* Calculate the rating based on the input value */}
+            {/* <CustomRating initialRating={InputValue.googleReviews} />  */}
             {/* Calculate the rating based on the input value */}
             {/* <CustomRating initialRating={InputValue.googleReviews} />  */}
           </div>
