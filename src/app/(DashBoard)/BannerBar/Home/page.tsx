@@ -44,9 +44,11 @@ const Page = () => {
       if (inputValues.bannerImage) {
         formData.append("bannerImage", inputValues.bannerImage as any);
       }
-      const response = await axios.patch(`http://3.110.121.13/api/banner/update/Home`, formData);
-      console.log('Success:', response.data);
-
+      const response = await axios.patch(
+        `https://backend.thelanguagenetwork.co/api/banner/update/Home`,
+        formData
+      );
+      console.log("Success:", response.data);
     } catch (error) {
       console.error("Error updating banner:", error);
     }
@@ -61,17 +63,23 @@ const Page = () => {
     );
   }
 
-  const updatedData = data.filter((item : any) => item.pageName === "Home")
-  console.log("Updated Data : " , updatedData)
-  
+  const updatedData = data.filter((item: any) => item.pageName === "Home");
+  console.log("Updated Data : ", updatedData);
+
   return (
     <div className="w-full h-full flex flex-col gap-5 p-4">
-      <label htmlFor="bannerTitle" className="block text-3xl mb-2 font-bold text-gray-700">
+      <label
+        htmlFor="bannerTitle"
+        className="block text-3xl mb-2 font-bold text-gray-700"
+      >
         Banner Section:
       </label>
       <div className="flex flex-wrap gap-5">
         <div>
-          <label htmlFor="bannerTitle" className="block mb-2 font-bold text-gray-700">
+          <label
+            htmlFor="bannerTitle"
+            className="block mb-2 font-bold text-gray-700"
+          >
             Title:
           </label>
           <input
@@ -86,7 +94,10 @@ const Page = () => {
         </div>
 
         <div>
-          <label htmlFor="bannerDescription" className="block mb-2 font-bold text-gray-700">
+          <label
+            htmlFor="bannerDescription"
+            className="block mb-2 font-bold text-gray-700"
+          >
             Description:
           </label>
           <input
@@ -101,7 +112,10 @@ const Page = () => {
         </div>
 
         <div>
-          <label htmlFor="buttonText" className="block mb-2 font-bold text-gray-700">
+          <label
+            htmlFor="buttonText"
+            className="block mb-2 font-bold text-gray-700"
+          >
             Button Text:
           </label>
           <input
@@ -116,7 +130,10 @@ const Page = () => {
         </div>
 
         <div>
-          <label htmlFor="bannerImage" className="block mb-2 font-bold text-gray-700">
+          <label
+            htmlFor="bannerImage"
+            className="block mb-2 font-bold text-gray-700"
+          >
             Banner Image:
           </label>
           <div className="flex items-center">
@@ -139,7 +156,10 @@ const Page = () => {
         </div>
 
         <div>
-          <label htmlFor="updateBanner" className="block mb-2 font-bold text-gray-700">
+          <label
+            htmlFor="updateBanner"
+            className="block mb-2 font-bold text-gray-700"
+          >
             Update Banner:
           </label>
           <div className="flex items-center">
@@ -153,29 +173,45 @@ const Page = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Banner Display Section */}
-      
+
       <div className="md:mx-10 mt-5">
         <div className="max-w-[1681px] lg:min-h-[542px] w-full justify-between items-center flex flex-col lg:flex-row px-5 xl:mx-auto">
           <div className="lg:w-[525px] lg:min-h-[542px] min-h-fit flex-col z-10 max-lg:my-10 justify-center w-full lg:items-start gap-0 inline-flex">
             <div className="self-stretch lg:h-[261px] h-fit 2xl:h-[261px] xl:h-[261px] flex-col justify-center items-start gap-4 flex">
               <div className="self-stretch text-stone-900 2xl:text-[40px] xl:text-4xl max-md:text-2xl max-xl:text-5xl text-[24px] font-bold">
-              {(updatedData && updatedData.length > 0 && inputValues.bannerTitle === "") ? updatedData[0].bannerTitle : inputValues.bannerTitle}
+                {updatedData &&
+                updatedData.length > 0 &&
+                inputValues.bannerTitle === ""
+                  ? updatedData[0].bannerTitle
+                  : inputValues.bannerTitle}
               </div>
               <div className="self-stretch text-stone-900 2xl:text-5xl xl:text-4xl lg:text-3xl text-xl font-normal">
-              {(updatedData && updatedData.length > 0 && inputValues.bannerDescription === "") ? updatedData[0].bannerDescription : inputValues.bannerDescription}
+                {updatedData &&
+                updatedData.length > 0 &&
+                inputValues.bannerDescription === ""
+                  ? updatedData[0].bannerDescription
+                  : inputValues.bannerDescription}
               </div>
             </div>
             <div className="max-xl:mt-6 max-2xl:-ml-9">
-              <BookAFreeDemoButton text={(updatedData && updatedData.length > 0 && inputValues.buttonText === "") ? updatedData[0].buttonText : inputValues.buttonText} />
+              <BookAFreeDemoButton
+                text={
+                  updatedData &&
+                  updatedData.length > 0 &&
+                  inputValues.buttonText === ""
+                    ? updatedData[0].buttonText
+                    : inputValues.buttonText
+                }
+              />
             </div>
           </div>
           <Image
             alt="homePageBannerGirl"
             className="h-[440px] w-[640px] rounded-lg object-contain"
-            width = {500}
-            height = {500}
+            width={500}
+            height={500}
             src={updatedData[0].bannerImage}
           ></Image>
         </div>

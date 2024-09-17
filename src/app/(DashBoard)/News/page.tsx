@@ -7,7 +7,7 @@ import { useGetNewsQuery } from "@/Store/apiSlice";
 import axios from "axios";
 
 const Page = () => {
-  const [isLoading,setIsLoading]=useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [inputValues, setInputValues] = useState({
     newsTitle: "",
     newsHeadline: "",
@@ -17,7 +17,7 @@ const Page = () => {
     bannerImage: null,
   });
 
-  const { data,isLoading:fetchLoading } = useGetNewsQuery("");
+  const { data, isLoading: fetchLoading } = useGetNewsQuery("");
   console.log(data);
 
   // Update input values in state
@@ -38,22 +38,25 @@ const Page = () => {
     setIsLoading(true);
     try {
       const formData = new FormData();
-      formData.append('newsTitle', inputValues.newsTitle);
-      formData.append('newsHeadline', inputValues.newsHeadline);
-      formData.append('newsDescription', inputValues.newsDescription);
-      formData.append('newsDate', inputValues.newsDate);
-      formData.append('newsImage', inputValues.newsImage as any);
-      formData.append('bannerImage', inputValues.bannerImage as any);
+      formData.append("newsTitle", inputValues.newsTitle);
+      formData.append("newsHeadline", inputValues.newsHeadline);
+      formData.append("newsDescription", inputValues.newsDescription);
+      formData.append("newsDate", inputValues.newsDate);
+      formData.append("newsImage", inputValues.newsImage as any);
+      formData.append("bannerImage", inputValues.bannerImage as any);
 
-      const response = await axios.patch(`http://3.110.121.13/api/news/update/${data[0]._id}`, formData);
-      console.log('Success:', response.data);
+      const response = await axios.patch(
+        `https://backend.thelanguagenetwork.co/api/news/update/${data[0]._id}`,
+        formData
+      );
+      console.log("Success:", response.data);
     } catch (error) {
-      console.error('Error updating news:', error);
+      console.error("Error updating news:", error);
     }
     setIsLoading(false);
-  }
+  };
 
-  if (isLoading || !data ||fetchLoading) {
+  if (isLoading || !data || fetchLoading) {
     return (
       <div className="w-full h-full flex items-center justify-center">
         <div className="loader">Loading...</div>{" "}
@@ -71,7 +74,10 @@ const Page = () => {
       </label>
       <div className="flex flex-wrap gap-5">
         <div>
-          <label htmlFor="newsTitle" className="block mb-2 font-bold text-gray-700">
+          <label
+            htmlFor="newsTitle"
+            className="block mb-2 font-bold text-gray-700"
+          >
             Title:
           </label>
           <input
@@ -182,7 +188,6 @@ const Page = () => {
             </button>
           </div>
         </div>
-
         <div>
           <label
             htmlFor="updateNews"
@@ -212,14 +217,24 @@ const Page = () => {
               <div className="flex flex-col grow justify-center p-2.5 w-full bg-white rounded-2xl shadow-2xl text-stone-900 max-md:px-5 items-center lg:max-md:mt-5 max-md:max-w-full">
                 <Image
                   alt="bannerImage"
-                  src={inputValues.bannerImage ? URL.createObjectURL(inputValues.bannerImage) : ((data && data.length > 0 && inputValues.bannerImage === null) ? data[0].bannerImage : img2)}
+                  src={
+                    inputValues.bannerImage
+                      ? URL.createObjectURL(inputValues.bannerImage)
+                      : data &&
+                        data.length > 0 &&
+                        inputValues.bannerImage === null
+                      ? data[0].bannerImage
+                      : img2
+                  }
                   height={40}
                   width={300}
                   className="h-[40px] w-[300px]"
                 />
                 <div className="flex flex-col items-center justify-center px-12 mx-8 mt-8 max-md:px-5 max-md:mx-2.5">
                   <div className="text-3xl flex items-center justify-center text-nowrap">
-                    {(data && data.length > 0 && inputValues.newsTitle === "") ? data[0].newsTitle : inputValues.newsTitle}
+                    {data && data.length > 0 && inputValues.newsTitle === ""
+                      ? data[0].newsTitle
+                      : inputValues.newsTitle}
                   </div>
                   <div className="self-center mt-1 text-5xl font-bold max-md:text-4xl">
                     NEWS
@@ -237,7 +252,15 @@ const Page = () => {
                           alt="girlImg"
                           className="h-full rounded-lg w-full object-cover"
                           width={300}
-                          src={inputValues.newsImage ? URL.createObjectURL(inputValues.newsImage) : ((data && data.length > 0 && inputValues.newsImage === null) ? data[0].newsImage : img2)}
+                          src={
+                            inputValues.newsImage
+                              ? URL.createObjectURL(inputValues.newsImage)
+                              : data &&
+                                data.length > 0 &&
+                                inputValues.newsImage === null
+                              ? data[0].newsImage
+                              : img2
+                          }
                           height={300}
                         />
                         <div className="mt-4 text-xl leading-7 text-primary-color">
@@ -245,19 +268,31 @@ const Page = () => {
                         </div>
                         <div className="mt-1 text-base text-stone-300">
                           Published on{" "}
-                          {(data && data.length > 0 && inputValues.newsDate === "") ? data[0].newsDate : inputValues.newsDate}
+                          {data &&
+                          data.length > 0 &&
+                          inputValues.newsDate === ""
+                            ? data[0].newsDate
+                            : inputValues.newsDate}
                         </div>
                       </div>
                     </div>
                     <div className="flex flex-col ml-5 w-[69%] max-md:ml-0 max-md:w-full">
                       <div className="flex flex-col grow self-stretch pb-9 text-xl max-md:mt-8 max-md:max-w-full">
                         <div className="lg:text-3xl text-stone-900 text-xl lg:font-bold font-normal  max-md:max-w-full">
-                          {(data && data.length > 0 && inputValues.newsHeadline === "") ? data[0].newsHeadline : inputValues.newsHeadline}
+                          {data &&
+                          data.length > 0 &&
+                          inputValues.newsHeadline === ""
+                            ? data[0].newsHeadline
+                            : inputValues.newsHeadline}
                           <br />
                           <br />
                         </div>
                         <div className="mt-2 leading-7 text-neutral-500 text-base max-md:max-w-full lg:text-xl">
-                          {(data && data.length > 0 && inputValues.newsDescription === "") ? data[0].newsDescription : inputValues.newsDescription}
+                          {data &&
+                          data.length > 0 &&
+                          inputValues.newsDescription === ""
+                            ? data[0].newsDescription
+                            : inputValues.newsDescription}
                         </div>
                         <div className="mt-5 text-primary-color max-md:max-w-full text-base lg:text-xl">
                           <span className="text-neutral-500">
