@@ -11,7 +11,7 @@ const Homelayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <div className="">
+    <div >
       <SideBar>
         <ApiProvider api={api}>{children}</ApiProvider>
       </SideBar>

@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
-  // baseQuery: fetchBaseQuery({baseUrl:"http://3.110.121.13"}),
+  // baseQuery: fetchBaseQuery({baseUrl:"https://backend.thelanguagenetwork.co"}),
   baseQuery: fetchBaseQuery({
     baseUrl: "https://backend.thelanguagenetwork.co/",
   }),
@@ -77,10 +77,24 @@ export const api = createApi({
       invalidatesTags: ["Stats"],
     }),
 
-    //
+    // -----------------------------Banner queries-------------------------------
+
     getBanner: builder.query({
       query: () => "/api/banner/get-all",
       providesTags: ["Banner"],
+    }),
+    getBannerByContxtAndLang: builder.query({
+      query: ({ context, language }) =>
+        `/api/banner/get-all/language=${language}&context=${context}`,
+      providesTags: ["Banner"],
+    }),
+    addBanner: builder.mutation({
+      query: (Banner) => ({
+        url: `/api/banner/create`,
+        method: "POST",
+        body: Banner,
+      }),
+      invalidatesTags: ["Banner"],
     }),
     updateBanner: builder.mutation({
       query: ({ pageName, ...updatedBannerData }) => ({
@@ -105,5 +119,7 @@ export const {
   useGetStatsQuery,
   useUpdateStatsMutation,
   useGetBannerQuery,
+  useGetBannerByContxtAndLangQuery,
+  useAddBannerMutation,
   useUpdateBannerMutation,
 } = api;

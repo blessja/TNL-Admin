@@ -1,25 +1,31 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
-import { useGetBannerQuery, useUpdateBannerMutation } from "@/Store/apiSlice";
-import homePageBannerGirl from "./homePageBannerGirl.png";
+import React, { useRef, useState } from "react";
+import {
+  useAddBannerMutation,
+  useGetBannerQuery,
+  useUpdateBannerMutation,
+} from "@/Store/apiSlice";
 import axios from "axios";
-import BookAFreeDemoButton from "../../BookAFreeDemoButton";
+import BookAFreeDemoButton from "../BookAFreeDemoButton";
 
 const Page = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [Splicing, setSplicing] = useState(true);
   const [showFullDescription, setShowFullDescription] = useState(false);
+  const imageRef = useRef(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [inputValues, setInputValues] = useState({
     bannerTitle: "",
     bannerDescription: "",
     buttonText: "",
     bannerImage: null,
+    language: "",
+    context: "",
   });
 
+  const [addBanner, { isLoading: isAdding }] = useAddBannerMutation();
+
   const { data, isLoading: fetchLoading } = useGetBannerQuery("");
-  const [updateBanner] = useUpdateBannerMutation();
-  console.log(data);
 
   // Update input values in state
   const handleInputChange = (e: any) => {
@@ -30,27 +36,42 @@ const Page = () => {
   // Update image files in state
   const handleImageUpload = (e: any) => {
     const { name, files } = e.target;
+    showPhoto(e);
     if (files && files.length > 0) {
       setInputValues({ ...inputValues, [name]: files[0] });
     }
   };
 
-  const handleUpdateBanner = async () => {
+  const showPhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setSelectedImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleAdd = async () => {
     setIsLoading(true);
     try {
       const formData = new FormData();
       formData.append("bannerTitle", inputValues.bannerTitle);
       formData.append("bannerDescription", inputValues.bannerDescription);
       formData.append("buttonText", inputValues.buttonText);
-      formData.append("pageName", "Mandarin");
+      formData.append("buttonLink", "");
+      formData.append("language", inputValues.language);
+      formData.append("context", inputValues.context);
+
+      console.log("Form data: =>" + formData);
+
       if (inputValues.bannerImage) {
         formData.append("bannerImage", inputValues.bannerImage as any);
       }
-      const response = await axios.patch(
-        `https://backend.thelanguagenetwork.co/api/banner/update/Mandarin`,
-        formData
-      );
-      console.log("Success:", response.data);
+      const response = addBanner(formData);
+      console.log("Success:", response);
     } catch (error) {
       console.error("Error updating banner:", error);
     }
@@ -64,7 +85,7 @@ const Page = () => {
       </div>
     );
   }
-  const updatedData = data.filter((item: any) => item.pageName === "Mandarin");
+  const updatedData = data.filter((item: any) => item.pageName === "English");
   const bannerDescription =
     updatedData &&
     updatedData.length > 0 &&
@@ -78,7 +99,7 @@ const Page = () => {
         htmlFor="bannerTitle"
         className="block text-3xl mb-2 font-bold text-gray-700"
       >
-        Banner Section:
+        Add new banner
       </label>
       <div className="flex flex-wrap gap-5">
         <div>
@@ -134,7 +155,57 @@ const Page = () => {
             onChange={handleInputChange}
           />
         </div>
-
+        <div>
+          <label
+            htmlFor="buttonText"
+            className="block mb-2 font-bold text-gray-700"
+          >
+            Language name:
+          </label>
+          <select
+            id="language"
+            name="language"
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+            onChange={handleInputChange}
+          >
+            <option value="English">English</option>
+            <option value="French">French</option>
+            <option value="Spanish">Spanish</option>
+            <option value="German">German</option>
+            <option value="Italian">Italian</option>
+            <option value="Mandarine">Mandarine</option>
+            <option value="Japanese">Japanese</option>
+            <option value="Korean">Korean</option>
+            <option value="Russian">Russian</option>
+            <option value="Arabic">Arabic</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div>
+          <label
+            htmlFor="buttonText"
+            className="block mb-2 font-bold text-gray-700"
+          >
+            Context:
+          </label>
+          <select
+            id="context"
+            name="context"
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+            // value={inputValues.context}
+            onChange={handleInputChange}
+          >
+            <option value="Home">Home</option>
+            <option value="Adult">Adult</option>
+            <option value="Kids">Kids</option>
+            <option value="StudyAbroad">StudyAbroad</option>
+            <option value="Language">Language</option>
+            <option value="Work">Work</option>
+            <option value="Travel">Travel</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
         <div>
           <label
             htmlFor="bannerImage"
@@ -144,6 +215,7 @@ const Page = () => {
           </label>
           <div className="flex items-center">
             <input
+              ref={imageRef}
               type="file"
               id="bannerImage"
               name="bannerImage"
@@ -166,46 +238,20 @@ const Page = () => {
             htmlFor="updateBanner"
             className="block mb-2 font-bold text-gray-700"
           >
-            Update Banner:
+            Add Banner:
           </label>
           <div className="flex items-center">
             <button
               type="button"
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-green-500 bg-green-500 text-white hover:bg-green-600"
-              onClick={handleUpdateBanner}
+              onClick={handleAdd}
             >
-              Update
+              Add
             </button>
           </div>
         </div>
       </div>
 
-      {/* Banner Display Section */}
-
-      {/* <div className="md:mx-10 mt-5">
-        <div className="max-w-[1681px] lg:min-h-[542px] w-full justify-between items-center flex flex-col lg:flex-row px-5 xl:mx-auto">
-          <div className="lg:w-[525px] lg:min-h-[542px] min-h-fit flex-col z-10 max-lg:my-10 justify-center w-full lg:items-start gap-0 inline-flex">
-            <div className="self-stretch lg:h-[261px] h-fit 2xl:h-[261px] xl:h-[261px] flex-col justify-center items-start gap-4 flex">
-              <div className="self-stretch text-stone-900 2xl:text-[40px] xl:text-4xl max-md:text-2xl max-xl:text-5xl text-[24px] font-bold">
-              {(updatedData && updatedData.length > 0 && inputValues.bannerTitle === "") ? updatedData[0].bannerTitle : inputValues.bannerTitle}
-              </div>
-              <div className="self-stretch text-stone-900 2xl:text-5xl xl:text-4xl lg:text-3xl text-xl font-normal">
-              {(updatedData && updatedData.length > 0 && inputValues.bannerDescription === "") ? updatedData[0].bannerDescription : inputValues.bannerDescription}
-              </div>
-            </div>
-            <div className="max-xl:mt-6 max-2xl:-ml-9">
-              <BookAFreeDemoButton text={(updatedData && updatedData.length > 0 && inputValues.buttonText === "") ? updatedData[0].buttonText : inputValues.buttonText} />
-            </div>
-          </div>
-          <Image
-            alt="homePageBannerGirl"
-            className="h-[500px] w-[500px] rounded-lg object-contain"
-            width = {500}
-            height = {500}
-            src={updatedData[0].bannerImage}
-            ></Image>
-        </div>
-      </div> */}
       <div className="w-full relative flex justify-center items-center flex-col mb-[112px]">
         <div className="mt-[43px] max-md:mt-8 max-w-[1681px]  mx-auto w-full">
           <div className="flex-auto max-md:max-w-full">
@@ -216,14 +262,14 @@ const Page = () => {
                     {updatedData &&
                     updatedData.length > 0 &&
                     inputValues.bannerTitle === ""
-                      ? updatedData[0].bannerTitle
+                      ? "Title"
                       : inputValues.bannerTitle}
                   </div>
                   <div className="mt-2 max-sm:text-sm text-xl leading-7 lg:text-base 2xl:text-xl lg:w-[450px] xl:w-[600px] max-md:max-w-full relative mb-[32px]">
                     <div className="mb-8 max-md:text-[#757575]">
                       {showFullDescription ? (
                         <div>
-                          {bannerDescription}
+                          <span className="text-wrap">{bannerDescription}</span>
                           <span
                             className="cursor-pointer text-neutral-color"
                             onClick={() => setShowFullDescription(false)}
@@ -259,28 +305,16 @@ const Page = () => {
               </div>
               <div className="max-2xl:w-[540px] max-sm:hidden mx-auto right-0 max-lg:left-0 lg:absolute w-[700px] lg:block flex-grow">
                 <Image
-                  alt="homePageBannerGirl"
+                  alt="banner image"
                   className="h-[350px] w-[640px] ml-10 rounded-lg object-contain"
                   width={500}
                   height={500}
-                  src={updatedData[0].bannerImage}
+                  src={selectedImage || updatedData[0].bannerImage}
                 ></Image>
               </div>
             </div>
           </div>
         </div>
-        {/* <div className="w-full -my-10">
-        <Image
-          alt="girlAndBoy"
-          src={girlAndBoy}
-          className="-mb-10 md:hidden w-full"
-        />
-        <Image
-          alt="homePageBannerGirl"
-          className="w-full  -ml-8 h-full object-contain -mb-10 md:hidden"
-          src={girlImage}
-        ></Image>
-      </div> */}
       </div>
     </div>
   );
