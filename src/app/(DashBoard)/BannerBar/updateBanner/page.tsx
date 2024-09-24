@@ -268,7 +268,7 @@ const Page = () => {
                   className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-green-500 bg-green-500 text-white hover:bg-green-600"
                   onClick={handleUpdate}
                 >
-                  Update
+                  {isUpdating ? "Updating..." : "Update"}
                 </button>
               </div>
             </div>
