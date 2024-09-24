@@ -71,8 +71,9 @@ const Page = () => {
       if (inputValues.bannerImage) {
         formData.append("bannerImage", inputValues.bannerImage as any);
       }
-      const response = addBanner(formData);
+      const response = addBanner(formData).unwrap();
       console.log("Success:", data);
+      response.then((res) => alert("Added successfully"));
     } catch (error) {
       console.error("Error updating banner:", error);
     }
@@ -247,7 +248,7 @@ const Page = () => {
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-green-500 bg-green-500 text-white hover:bg-green-600"
               onClick={handleAdd}
             >
-              Add
+              {isAdding ? "Adding..." : "Add"}
             </button>
           </div>
         </div>
