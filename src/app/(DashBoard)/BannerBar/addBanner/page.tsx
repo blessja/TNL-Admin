@@ -303,7 +303,12 @@ const Page = () => {
                   className="h-[350px] w-[640px] ml-10 rounded-lg object-contain"
                   width={500}
                   height={500}
-                  src={selectedImage || updatedData[0].bannerImage}
+                  src={
+                    selectedImage ||
+                    (updatedData &&
+                      updatedData.length > 0 &&
+                      updatedData[0].bannerImage)
+                  }
                 ></Image>
               </div>
             </div>
