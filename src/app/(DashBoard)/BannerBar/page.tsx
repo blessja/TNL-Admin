@@ -66,7 +66,21 @@ const Page = () => {
         >
           Home Page:
         </label>
-        <Link href={"/BannerBar/addBanner"} className="border bg-blue-600 hover:bg-blue-900 hover:scale-105 text-white px-4 py-2 rounded-lg">Add new Banner</Link>
+        <div>
+          <Link
+            href={"/BannerBar/updateBanner"}
+            className="border bg-green-600 hover:bg-green-900 hover:scale-105 text-white px-4 py-2 rounded-lg"
+          >
+            Update Banner
+          </Link>
+
+          <Link
+            href={"/BannerBar/addBanner"}
+            className="border bg-blue-600 hover:bg-blue-900 hover:scale-105 text-white px-4 py-2 rounded-lg"
+          >
+            Add new Banner
+          </Link>
+        </div>
       </div>
 
       <div className="w-full flex flex-col gap-5">

@@ -66,12 +66,13 @@ const Page = () => {
       formData.append("context", inputValues.context);
 
       console.log("Form data: =>" + formData);
+      console.log("Banner data: =>" + formData);
 
       if (inputValues.bannerImage) {
         formData.append("bannerImage", inputValues.bannerImage as any);
       }
       const response = addBanner(formData);
-      console.log("Success:", response);
+      console.log("Success:", data);
     } catch (error) {
       console.error("Error updating banner:", error);
     }
@@ -138,7 +139,7 @@ const Page = () => {
           />
         </div>
 
-        <div>
+        {/* <div>
           <label
             htmlFor="buttonText"
             className="block mb-2 font-bold text-gray-700"
@@ -154,10 +155,10 @@ const Page = () => {
             value={inputValues.buttonText}
             onChange={handleInputChange}
           />
-        </div>
+        </div> */}
         <div>
           <label
-            htmlFor="buttonText"
+            htmlFor="languageName"
             className="block mb-2 font-bold text-gray-700"
           >
             Language name:
@@ -290,15 +291,7 @@ const Page = () => {
                       )}
                     </div>
                     <div className="max-sm:absolute max-sm:-left-[4px] flex justify-star max-2xl:-ml-8 max-2xl:-mt-6 max-md:-ml-8 ">
-                      <BookAFreeDemoButton
-                        text={
-                          updatedData &&
-                          updatedData.length > 0 &&
-                          inputValues.buttonText === ""
-                            ? updatedData[0].buttonText
-                            : inputValues.buttonText
-                        }
-                      />
+                      <BookAFreeDemoButton text={"Get started"} />
                     </div>
                   </div>
                 </div>

@@ -85,7 +85,7 @@ export const api = createApi({
     }),
     getBannerByContxtAndLang: builder.query({
       query: ({ context, language }) =>
-        `/api/banner/get-all/language=${language}&context=${context}`,
+        `/api/banner/get-all/?language=${language}&context=${context}`,
       providesTags: ["Banner"],
     }),
     addBanner: builder.mutation({
@@ -97,8 +97,8 @@ export const api = createApi({
       invalidatesTags: ["Banner"],
     }),
     updateBanner: builder.mutation({
-      query: ({ pageName, ...updatedBannerData }) => ({
-        url: `/api/banner/update/${pageName}`,
+      query: ({ _id, updatedBannerData }) => ({
+        url: `/api/banner/update/${_id}`,
         method: "PATCH",
         body: updatedBannerData,
       }),
