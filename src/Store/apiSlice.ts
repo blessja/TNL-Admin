@@ -5,7 +5,7 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://backend.thelanguagenetwork.co/",
   }),
-  tagTypes: ["Promos", "News", "FAQ", "Stats", "Banner"],
+  tagTypes: ["Promos", "News", "FAQ", "Stats", "Banner", "Testimonials"],
   endpoints: (builder) => ({
     // -----------------------------promo queries-------------------------------
 
@@ -104,6 +104,37 @@ export const api = createApi({
       }),
       invalidatesTags: ["Banner"],
     }),
+
+    // ---------------------- trainers queries -------------------------------
+
+    getAllTestimonials: builder.query({
+      query: ({ language, context }) =>
+        `/api/testimonial/get-all?language=${language}&context=${context}`,
+      providesTags: ["Testimonials"],
+    }),
+    addTestimonial: builder.mutation({
+      query: (Testimonial) => ({
+        url: `/api/testimonial/create`,
+        method: "POST",
+        body: Testimonial,
+      }),
+      invalidatesTags: ["Testimonials"],
+    }),
+    updateTestimonial: builder.mutation({
+      query: ({ id, updatedTestimonial }) => ({
+        url: `/api/testimonial/update/${id}`,
+        method: "PUT",
+        body: updatedTestimonial,
+      }),
+      invalidatesTags: ["Testimonials"],
+    }),
+    deleteTestimonial: builder.mutation({
+      query: (id) => ({
+        url: `/api/testimonial/delete/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Testimonials"],
+    }),
   }),
 });
 
@@ -122,4 +153,8 @@ export const {
   useGetBannerByContxtAndLangQuery,
   useAddBannerMutation,
   useUpdateBannerMutation,
+  useGetAllTestimonialsQuery,
+  useAddTestimonialMutation,
+  useUpdateTestimonialMutation,
+  useDeleteTestimonialMutation,
 } = api;

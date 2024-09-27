@@ -1,36 +1,36 @@
 "use client";
 import Image from "next/image";
 import React, { useRef, useState } from "react";
-import {
-  useAddBannerMutation,
-  useGetBannerQuery,
-  useUpdateBannerMutation,
-} from "@/Store/apiSlice";
+import { useAddTestimonialMutation } from "@/Store/apiSlice";
 import axios from "axios";
-import BookAFreeDemoButton from "../BookAFreeDemoButton";
+import Testimonials from "@/components/Testimonials";
 
 const Page = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [showFullDescription, setShowFullDescription] = useState(false);
   const imageRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [language, setLanguage] = useState("English");
+  const [context, setContext] = useState("");
   const [inputValues, setInputValues] = useState({
-    bannerTitle: "",
-    bannerDescription: "",
-    buttonText: "",
-    bannerImage: null,
-    language: "",
-    context: "",
+    name: "",
+    description: "",
+    profession: "",
+    image: null,
+    language: language,
+    context: context,
   });
 
-  const [addBanner, { isLoading: isAdding }] = useAddBannerMutation();
-
-  const { data, isLoading: fetchLoading } = useGetBannerQuery("");
+  const [addTestimonial, { isLoading: isAdding }] = useAddTestimonialMutation();
 
   // Update input values in state
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setInputValues({ ...inputValues, [name]: value });
+    if (name === "language") {
+      setLanguage(value);
+    } else if (name === "context") {
+      setContext(value);
+    }
   };
 
   // Update image files in state
@@ -58,9 +58,9 @@ const Page = () => {
     setIsLoading(true);
     try {
       const formData = new FormData();
-      formData.append("bannerTitle", inputValues.bannerTitle);
-      formData.append("bannerDescription", inputValues.bannerDescription);
-      formData.append("buttonText", inputValues.buttonText);
+      formData.append("name", inputValues.name);
+      formData.append("description", inputValues.description);
+      formData.append("profession", inputValues.profession);
       formData.append("buttonLink", "");
       formData.append("language", inputValues.language);
       formData.append("context", inputValues.context);
@@ -68,95 +68,92 @@ const Page = () => {
       console.log("Form data: =>" + formData);
       console.log("Banner data: =>" + formData);
 
-      if (inputValues.bannerImage) {
-        formData.append("bannerImage", inputValues.bannerImage as any);
+      if (inputValues.image) {
+        formData.append("image", inputValues.image as any);
       }
-      const response = addBanner(formData).unwrap();
-      console.log("Success:", data);
-      response.then((res) => alert("Added successfully"));
+      const response = addTestimonial(formData).unwrap();
+      response.then(() => alert("Added successfully"));
+      setInputValues({
+        name: "",
+        description: "",
+        profession: "",
+        image: null,
+        language: language,
+        context: context,
+      });
     } catch (error) {
       console.error("Error updating banner:", error);
     }
     setIsLoading(false);
   };
 
-  if (isLoading || !data || fetchLoading) {
+  if (isLoading || isAdding) {
     return (
       <div className="w-full h-full flex items-center justify-center">
         <div className="loader">Loading...</div>
       </div>
     );
   }
-  const updatedData = data.filter((item: any) => item.pageName === "English");
-  const bannerDescription =
-    updatedData &&
-    updatedData.length > 0 &&
-    inputValues.bannerDescription === ""
-      ? updatedData[0].bannerDescription
-      : inputValues.bannerDescription;
 
   return (
-    <div className="w-full h-full flex flex-col gap-5 p-4">
+    <div className="w-full flex flex-col gap-5 p-4">
       <label
-        htmlFor="bannerTitle"
+        htmlFor="name"
         className="block text-3xl mb-2 font-bold text-gray-700"
       >
-        Add new banner
+        Testimonials
       </label>
       <div className="flex flex-wrap gap-5">
         <div>
-          <label
-            htmlFor="bannerTitle"
-            className="block mb-2 font-bold text-gray-700"
-          >
+          <label htmlFor="name" className="block mb-2 font-bold text-gray-700">
             Title:
           </label>
           <input
             type="text"
-            id="bannerTitle"
-            name="bannerTitle"
-            placeholder="Enter Your Banner Title"
+            id="name"
+            name="name"
+            placeholder="Enter name"
             className="w-3xl px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            value={inputValues.bannerTitle}
+            value={inputValues.name}
             onChange={handleInputChange}
           />
         </div>
 
         <div>
           <label
-            htmlFor="bannerDescription"
+            htmlFor="description"
             className="block mb-2 font-bold text-gray-700"
           >
             Description:
           </label>
           <input
             type="text"
-            id="bannerDescription"
-            name="bannerDescription"
-            placeholder="Enter Your Banner Description"
+            id="description"
+            name="description"
+            placeholder="Enter Description"
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            value={inputValues.bannerDescription}
+            value={inputValues.description}
             onChange={handleInputChange}
           />
         </div>
 
-        {/* <div>
+        <div>
           <label
-            htmlFor="buttonText"
+            htmlFor="profession"
             className="block mb-2 font-bold text-gray-700"
           >
-            Button Text:
+            Profession:
           </label>
           <input
             type="text"
-            id="buttonText"
-            name="buttonText"
-            placeholder="Enter Button Text"
+            id="profession"
+            name="profession"
+            placeholder="Enter profession"
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            value={inputValues.buttonText}
+            value={inputValues.profession}
             onChange={handleInputChange}
           />
-        </div> */}
+        </div>
         <div>
           <label
             htmlFor="languageName"
@@ -186,7 +183,7 @@ const Page = () => {
         </div>
         <div>
           <label
-            htmlFor="buttonText"
+            htmlFor="Context"
             className="block mb-2 font-bold text-gray-700"
           >
             Context:
@@ -198,7 +195,7 @@ const Page = () => {
             // value={inputValues.context}
             onChange={handleInputChange}
           >
-            <option value="Home">Home</option>
+            {/* <option value="Home">Home</option> */}
             <option value="Adult">Adult</option>
             <option value="Kids">Kids</option>
             <option value="StudyAbroad">StudyAbroad</option>
@@ -209,18 +206,15 @@ const Page = () => {
           </select>
         </div>
         <div>
-          <label
-            htmlFor="bannerImage"
-            className="block mb-2 font-bold text-gray-700"
-          >
-            Banner Image:
+          <label htmlFor="image" className="block mb-2 font-bold text-gray-700">
+            Image:
           </label>
           <div className="flex items-center">
             <input
               ref={imageRef}
               type="file"
-              id="bannerImage"
-              name="bannerImage"
+              id="image"
+              name="image"
               accept="image/*"
               className="hidden"
               onChange={handleImageUpload}
@@ -228,7 +222,7 @@ const Page = () => {
             <button
               type="button"
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-blue-500 text-white hover:bg-blue-600"
-              onClick={() => document.getElementById("bannerImage")?.click()}
+              onClick={() => document.getElementById("image")?.click()}
             >
               Choose Image
             </button>
@@ -240,7 +234,7 @@ const Page = () => {
             htmlFor="updateBanner"
             className="block mb-2 font-bold text-gray-700"
           >
-            Add Banner:
+            Add Testimonial:
           </label>
           <div className="flex items-center">
             <button
@@ -254,7 +248,9 @@ const Page = () => {
         </div>
       </div>
 
-      <div className="w-full relative flex justify-center items-center flex-col mb-[112px]">
+      <Testimonials language={language} context={context} />
+
+      {/* <div className="w-full relative flex justify-center items-center flex-col mb-[112px]">
         <div className="mt-[43px] max-md:mt-8 max-w-[1681px]  mx-auto w-full">
           <div className="flex-auto max-md:max-w-full">
             <div className="flex gap-5 max-lg:flex-col max-md:gap-0">
@@ -263,9 +259,9 @@ const Page = () => {
                   <div className="text-5xl font-bold max-md:max-w-full max-md:text-2xl">
                     {updatedData &&
                     updatedData.length > 0 &&
-                    inputValues.bannerTitle === ""
+                    inputValues.name === ""
                       ? "Title"
-                      : inputValues.bannerTitle}
+                      : inputValues.name}
                   </div>
                   <div className="mt-2 max-sm:text-sm text-xl leading-7 lg:text-base 2xl:text-xl lg:w-[450px] xl:w-[600px] max-md:max-w-full relative mb-[32px]">
                     <div className="mb-8 max-md:text-[#757575]">
@@ -291,9 +287,6 @@ const Page = () => {
                         </div>
                       )}
                     </div>
-                    <div className="max-sm:absolute max-sm:-left-[4px] flex justify-star max-2xl:-ml-8 max-2xl:-mt-6 max-md:-ml-8 ">
-                      <BookAFreeDemoButton text={"Get started"} />
-                    </div>
                   </div>
                 </div>
               </div>
@@ -307,14 +300,14 @@ const Page = () => {
                     selectedImage ||
                     (updatedData &&
                       updatedData.length > 0 &&
-                      updatedData[0].bannerImage)
+                      updatedData[0].image)
                   }
                 ></Image>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
