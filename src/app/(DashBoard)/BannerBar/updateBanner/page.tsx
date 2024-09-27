@@ -110,7 +110,7 @@ const Page = () => {
   return (
     <>
       {fetchLoading ? (
-        <div>"Loading..."</div>
+        <div>&quot;Loading...&quot;</div>
       ) : (
         <div className="w-full h-full flex flex-col gap-5 p-4">
           <label
