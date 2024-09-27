@@ -17,16 +17,19 @@ const BreadCrumbs = () => {
         return "Updated the latest news.";
       case "/Language":
         return "Update The language courses and resources.";
+      case "/createpage":
+        return "Create New Language / Exam  Page ";
       default:
         return "Get Started...";
     }
   };
 
   return (
-    <div className="px-5 py-[14px] h-fit lg:col-span-9 col-span-12 xl:col-span-10 w-full">
-      <div className="text-3xl font-semibold">Welcome Back! 🙏🏼</div>
-      <div className="mt-3">{getStartedText()}</div>
-    </div>
+    // <div className="px-5 py-[14px] h-fit lg:col-span-9 col-span-12 xl:col-span-10 w-full">
+    //   <div className="text-3xl font-semibold">Welcome Back! 🙏🏼</div>
+    //   <div className="mt-3">{getStartedText()}</div>
+    // </div>
+    <></>
   );
 };
 

@@ -96,6 +96,8 @@ const Page = () => {
           page: "French Study Abroad Page",
           link: "/Language/French/StudyAbroad",
         },
+        { page: "Add Another Page", link: "/Language/French/adult" },
+        
       ],
     },
   ];
@@ -111,6 +113,7 @@ const Page = () => {
       <div className="w-full flex flex-col gap-5">
         <Accordion data={LanguagePages} />
       </div>
+      <button className="border py-5 rounded hover:shadow-xl transition transform duration-300 shadow-md">Add New Pages</button>
     </div>
   );
 };

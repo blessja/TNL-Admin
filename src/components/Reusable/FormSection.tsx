@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FaqAccordion from "./Faqs";
+import RichTextEditor from "../RichTextEditor";
 
 interface PageData {
   page: string;
@@ -11,7 +12,7 @@ interface LanguagesProps {
   page: PageData[];
 }
 
-const FormSection = ({ title, onSubmit, data }: any) => {
+const FormSection = ({ title, onSubmit, data, language, context }: any) => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
 
@@ -20,11 +21,12 @@ const FormSection = ({ title, onSubmit, data }: any) => {
   };
 
   const handleAnswerChange = (e: any) => {
+    console.log(answer);
     setAnswer(e.target.value);
   };
 
   const handleFormSubmit = () => {
-    onSubmit({ question, answer });
+    onSubmit({ question, answer, language, context });
     setQuestion("");
     setAnswer("");
   };
@@ -45,13 +47,13 @@ const FormSection = ({ title, onSubmit, data }: any) => {
           onChange={handleQuestionChange}
           className="p-2 rounded-md border"
         />
-        <textarea
-          id="Answer"
-          placeholder="Write your Answer here..."
-          value={answer}
-          onChange={handleAnswerChange}
-          className="p-2 rounded-md border"
-        />
+        <div>
+          <h1>Answer</h1>
+          <RichTextEditor
+            value={answer}
+            onChange={(value) => setAnswer(value)}
+          />
+        </div>
       </div>
       <div className="flex w-full gap-5">
         <button className="border rounded-md p-2" onClick={handleFormSubmit}>
