@@ -170,6 +170,7 @@ const Page = () => {
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
             onChange={handleInputChange}
           >
+            <option value="">No option</option>
             <option value="English">English</option>
             <option value="French">French</option>
             <option value="Spanish">Spanish</option>
@@ -205,6 +206,17 @@ const Page = () => {
             <option value="Language">Language</option>
             <option value="Work">Work</option>
             <option value="Travel">Travel</option>
+            <option value="DELF">DELF</option>
+            <option value="DALF">DALF</option>
+            <option value="TEF">TEF</option>
+            <option value="GOETHE">GOETHE</option>
+            <option value="SIELE">SIELE</option>
+            <option value="DELE">DELE</option>
+            <option value="TOPIK">TOPIK</option>
+            <option value="JLPT">JLPT</option>
+            <option value="HSK">HSK</option>
+            <option value="IELTS">IELTS</option>
+            <option value="TOEFL">TOEFL</option>
             <option value="Others">Others</option>
           </select>
         </div>

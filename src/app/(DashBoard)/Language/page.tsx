@@ -97,7 +97,22 @@ const Page = () => {
           link: "/Language/French/StudyAbroad",
         },
         { page: "Add Another Page", link: "/Language/French/adult" },
-        
+      ],
+    },
+    {
+      Language: "Exams",
+      page: [
+        { page: "DELF", link: "/Language/Exams/DELF" },
+        { page: "DALF", link: "/Language/Exams/DALF" },
+        { page: "TEF", link: "/Language/Exams/TEF" },
+        { page: "GOETHE", link: "/Language/Exams/GOETHE" },
+        { page: "SIELE", link: "/Language/Exams/SIELE" },
+        { page: "DELE", link: "/Language/Exams/DELE" },
+        { page: "TOPIK", link: "/Language/Exams/TOPIK" },
+        { page: "JLPT", link: "/Language/Exams/JLPT" },
+        { page: "HSK", link: "/Language/Exams/HSK" },
+        { page: "IELTS", link: "/Language/Exams/IELTS" },
+        { page: "TOEFL", link: "/Language/Exams/TOEFL" },
       ],
     },
   ];
@@ -113,7 +128,7 @@ const Page = () => {
       <div className="w-full flex flex-col gap-5">
         <Accordion data={LanguagePages} />
       </div>
-      <button className="border py-5 rounded hover:shadow-xl transition transform duration-300 shadow-md">Add New Pages</button>
+      {/* <button className="border py-5 rounded hover:shadow-xl transition transform duration-300 shadow-md">Add New Pages</button> */}
     </div>
   );
 };

@@ -331,7 +331,7 @@ const SideBar = ({ children }: { children: React.ReactNode }) => {
         </div>
 
         {/* Main content */}
-        <div className=" overflow-y-auto h-screen">
+        <div className="">
           <BreadCrumbs />
           <hr />
           {children}

@@ -51,7 +51,6 @@ export default function Home() {
         lastUpdated: "2024-05-02",
         link: "/Language/Spanish/Home",
       },
-      
     ],
   };
 
@@ -111,11 +110,11 @@ export default function Home() {
           </Link>
         ))}
       </div>
-      <div className="m-5 w-auto h-auto gap-5 flex xl:flex-nowrap xl:flex-row flex-wrap lg:flex-row">
+      {/* <div className="m-5 w-auto h-auto gap-5 flex xl:flex-nowrap xl:flex-row flex-wrap lg:flex-row">
         <div className="border flex justify-center items-center rounded-lg w-full p-5 cursor-pointer">
           <div className="text-xl">Add Another Language</div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
