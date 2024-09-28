@@ -73,39 +73,39 @@ const Testimonials: React.FC<Props> = ({ language, context }) => {
               1024: { slidesPerView: 2 },
               368: { slidesPerView: 1 },
             }}
-            className="mySwiper mx-auto flex justify-center items-center max-sm:max-h-full w-[326px] sm:w-[404px] lg:w-[808px] xl:w-[1100px] h-[400px] p-4 "
+            className="mySwiper mx-auto flex justify-center items-center max-sm:max-h-full w-[326px] sm:w-[404px] lg:w-[808px] xl:w-[1000px] h-[400px] p-4 "
           >
             {data &&
               data.map((student: Testimonial, index: number) => (
                 <SwiperSlide
                   key={index}
-                  className="flex justify-center items-center max-sm:w-[326px] w-[404px] h-[335px] "
+                  className="flex justify-center items-center max-sm:w-[326px] w-[326px] h-[335px] "
                 >
                   <div
                     className="flex flex-col justify-between bg-white rounded-2xl shadow-md m-2 p-[20px] transition duration-300 hover:shadow-xl lg:p-8 max-w-[404px] h-[350px] hover:scale-105 cursor-pointer"
                     onClick={(e) => {}}
                   >
-                    <div className="text-sm text-stone-900">
+                    <div className="text-[12px]/[16px] text-stone-900">
                       “{student?.description.slice(0, 250)}...”
                     </div>
                     <div className="flex gap-2.5">
                       <Image
                         alt="studentPic"
-                        height={300}
-                        width={300}
+                        height={150}
+                        width={150}
                         src={student.image}
-                        className="w-20 h-20 object-cover rounded-full"
+                        className="w-14 h-14 object-cover rounded-full"
                       />
                       <div className="flex flex-col flex-1 self-start">
-                        <div className="text-xl font-bold text-stone-900">
+                        <div className="font-bold text-stone-900">
                           {student.name}
                         </div>
-                        <div className="mt-1 text-base font-medium text-neutral-500">
+                        <div className="mt-1 text-sm font-medium text-neutral-500">
                           {student.profession}
                         </div>
                         <div className="flex gap-1.5 pr-20 mt-1">
                           <TypedRating
-                            className="text-[#FFC107] text-[18px]"
+                            className="text-[#FFC107] text-[14px]"
                             initialRating={5}
                             readonly
                             emptySymbol={<FaRegStar />}

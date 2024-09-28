@@ -57,7 +57,7 @@ const Page = () => {
   };
 
   return (
-    <div className="w-full gap-5 flex flex-col h-[685px] overflow-y-auto p-5">
+    <div className="w-full gap-5 flex flex-col p-5">
       <div className="text-xl font-bold">{renderContent()}</div>
       <hr />
       <form onSubmit={handleSubmit} className="space-y-6">
